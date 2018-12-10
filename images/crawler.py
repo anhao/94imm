@@ -6,7 +6,8 @@ def getUrl():
     sqlpath="/static/images/"
     db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
     cursor = db.cursor()
-    page=requests.get("https://fenmimi.com/").text
+    for i in range(1,589):
+    page=requests.get("https://fenmimi.com/page/"+str(i)+"/").text
     soup=BeautifulSoup(page,"html.parser").find_all("div",class_="post-list-item")
     # print(BeautifulSoup(page,"html.parser"))
     for itme in soup:
