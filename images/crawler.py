@@ -4,7 +4,7 @@ import requests,pymysql,time,os,threading
 def getUrl():
     imgpath = "../static/images/"
     sqlpath="/static/images/"
-    db = pymysql.connect("127.0.0.1", "silumz", "fendou2009", "silumz")
+    db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
     cursor = db.cursor()
     page=requests.get("https://fenmimi.com/").text
     soup=BeautifulSoup(page,"html.parser").find_all("div",class_="post-list-item")
