@@ -31,6 +31,7 @@ class Spider():
             soup = BeautifulSoup(page, "html.parser").find_all("div", class_="post-list-item")
             for pages in soup:
                 page_url=pages.find("div",class_="item-title").find("a").get("href")
+                print("添加链接："+page_url)
                 self.page_url_list.append(page_url)
 
     def get_img_url(self):
@@ -85,6 +86,7 @@ class Spider():
             if isdata == False:
                 os.mkdir("../"+self.img_path + imgsrc.split("/")[-2])
             with open("../"+self.img_path + path, "wb")as f:
+                print("下载图片："+self.img_path + path)
                 f.write(requests.get(imgsrc, verify=False).content)
         Spider.rlock.release()
 
