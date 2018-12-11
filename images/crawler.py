@@ -40,9 +40,9 @@ class Spider():
         tagidlist=[]
         taglist=[]
         for page_url in self.page_url_list:
-            print("正在采集" + title)
             page = requests.get(page_url, verify=False).text
             title= BeautifulSoup(page, "html.parser").find("h1",class_="post-title").text
+            print("正在采集" + title)
             p = (title, "1", time.strftime('%Y-%m-%d', time.localtime(time.time())), "1", "1")
             cursor.execute("INSERT INTO images_page (title,tagid,sendtime,typeid,firstimg) VALUES (%s,%s,%s,%s,%s)", p)
             soup = BeautifulSoup(page, "html.parser").find_all("div", class_="post-content")
