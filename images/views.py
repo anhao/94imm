@@ -10,8 +10,7 @@ def index(request):
         page_list=Page.objects.values("id")
         for pid in page_list:
             title=Page.objects.get(id=pid.get("id")).title
-            fid=Page.objects.get(id=pid.get("id")).firstimg
-            firstimg=Image.objects.get(id=fid).imageurl
+            firstimg=Page.objects.get(id=pid.get("id")).firstimg
             imgs.append({"pid":pid.get("id"),"firstimg":firstimg,"title":title})
         paginator = Paginator(imgs, 6)
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1

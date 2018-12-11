@@ -5,13 +5,12 @@ class Page(models.Model):
     typeid = models.IntegerField()
     sendtime=models.DateField()
     title=models.CharField(max_length=200)
-    firstimg=models.IntegerField()
+    firstimg=models.CharField(max_length=200)
     tagid=models.CharField(max_length=200)
 
 class Image(models.Model):
     pageid=models.IntegerField()
     imageurl=models.URLField()
-    is_cover=models.BooleanField(default=False)
 
 class Type(models.Model):
     type=models.CharField(max_length=200)
