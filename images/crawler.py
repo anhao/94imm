@@ -39,8 +39,8 @@ class Spider():
         cursor = db.cursor()
         tagidlist=[]
         taglist=[]
-        print(self.page_url_list)
         for page_url in self.page_url_list:
+            print("正在采集" + title)
             page = requests.get(page_url, verify=False).text
             title= BeautifulSoup(page, "html.parser").find("h1",class_="post-title").text
             p = (title, "1", time.strftime('%Y-%m-%d', time.localtime(time.time())), "1", "1")
