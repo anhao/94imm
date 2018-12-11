@@ -1,13 +1,14 @@
 from bs4 import BeautifulSoup
 import requests,pymysql,time,os,threading
 
+
 def getUrl():
     imgpath = "../static/images/"
     sqlpath="/static/images/"
     db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
     cursor = db.cursor()
     for i in range(1,589):
-        page=requests.get("https://fenmimi.com/page/"+str(i)+"/").text
+        page=requests.get("https://fenmimi.com/page/"+str(i)+"/",verify=False).text
         soup=BeautifulSoup(page,"html.parser").find_all("div",class_="post-list-item")
         # print(BeautifulSoup(page,"html.parser"))
         for itme in soup:
@@ -22,7 +23,7 @@ def getUrl():
                 print("已采集")
             else:
                 link=itme.find("div",class_="item-title").find("a").get("href")
-                imgpage=requests.get(link).text
+                imgpage=requests.get(link,verify=False).text
                 imgsoup=BeautifulSoup(imgpage,"html.parser").find_all("div",class_="post-content")
                 for img_arr in imgsoup:
                     for tags in img_arr.find_all("p",class_="post-tags"):
@@ -64,7 +65,7 @@ def getUrl():
                         if isdata==False:
                             os.mkdir(imgpath+imgsrc.split("/")[-2])
                         with open(imgpath+path,"wb")as f:
-                            f.write(requests.get(imgsrc).content)
+                            f.write(requests.get(imgsrc,verify=False).content)
 
 
 
