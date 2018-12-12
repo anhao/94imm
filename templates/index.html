@@ -79,6 +79,8 @@
     </div>
     <div class="lists-navigator clearfix">
         <ol class="page-navigator">
+        {% load pagination_tags %}
+            {% autopaginate data 6 %}
                <li class="prev">
                    {% if data.has_previous %}
                     <a href="?p={{ data.previous_page_number }}">←</a>
@@ -90,7 +92,7 @@
                     <a href="?p={{ data.next_page_number }}">→</a>
                 {% endif %}
                 </li>
-
+        {% paginate %}
         </ol>
     </div>
 </div>
