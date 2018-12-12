@@ -1,0 +1,48 @@
+{% if is_paginated %}
+{% load i18n %}
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+  {% block previouslink %}
+  {% if page_obj.has_previous %}
+  {% if disable_link_for_first_page and page_obj.previous_page_number == 1 %}
+  <li class="page-item"><a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="prev page-link">{{ previous_link_decorator|safe }}{% trans "" %}</a></li>
+  {% else %}
+  <li class="page-item"><a href="?page{{ page_suffix }}={{ page_obj.previous_page_number }}{{ getvars }}" class="prev page-link">{{ previous_link_decorator|safe }}{% trans "" %}</a></li>
+  {% endif %}
+  {% else %}
+  {% if display_disabled_previous_link %}
+  <li class="page-item"><span class="disabled prev page-link">{{ previous_link_decorator|safe }}{% trans "previous" %}</span></li>
+  {% endif %}
+  {% endif %}
+  {% endblock previouslink %}
+  {% block pagelinks %}
+  {% if display_page_links %}
+  {% for page in pages %}
+  {% if page %}
+  {% ifequal page page_obj.number %}
+  <li class="page-item active"><a class="current page page-link ">{{ page }}<span class="sr-only">(current)</span></a></li>
+  {% else %}
+  {% if disable_link_for_first_page and page == 1 %}
+  <li class="page-item"><a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="page page-link">{{ page }}</a></li>
+  {% else %}
+  <li class="page-item"><a href="?page{{ page_suffix }}={{ page }}{{ getvars }}" class="page page-link">{{ page }}</a></li>
+  {% endif %}
+  {% endifequal %}
+  {% else %}
+  <li class="page-item">...</li>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endblock pagelinks %}
+  {% block nextlink %}
+  {% if page_obj.has_next %}
+  <li class="page-item"><a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next page-link">{% trans "" %}{{ next_link_decorator|safe }}</a></li>
+  {% else %}
+  {% if display_disabled_next_link %}
+  <li class="page-item"><span class="disabled next page-link">{% trans "" %}{{ next_link_decorator|safe }}</span></li>
+  {% endif %}
+  {% endif %}
+  {% endblock nextlink %}
+</ul>
+</nav>
+{% endif %}
