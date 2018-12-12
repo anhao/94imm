@@ -3,29 +3,17 @@ import threading,pymysql,time,requests,os,urllib3
 requests.packages.urllib3.disable_warnings()
 
 class Spider():
-    # 定义全局页面url列表
     page_url_list = []
-    # 定义具体各表情图片url列表
     img_url_list = []
-    # 定义rlock进程锁
     rlock = threading.RLock()
 
     def __init__(self,page_number=10,img_path='imgdir',thread_number=5):
-        """
-        :param page_number: 抓去多少个页面，默认10
-        :param img_dir: 定义图片目录
-        :param thread_number:默认5个线程
-        """
         self.spider_url = 'https://fenmimi.com/page/'
         self.page_number = int(page_number)
         self.img_path = img_path
         self.thread_num = thread_number
 
     def get_url(self):
-        """
-        创建image目录和生产pageurl列表
-        :return:
-        """
         for i in range(1,self.page_number+1):
             page = requests.get(self.spider_url + str(i), verify=False).text
             soup = BeautifulSoup(page, "html.parser").find_all("div", class_="post-list-item")
@@ -37,9 +25,9 @@ class Spider():
     def get_img_url(self):
         db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
         cursor = db.cursor()
-        tagidlist=[]
-        taglist=[]
         for page_url in self.page_url_list:
+            tagidlist = []
+            taglist = []
             page = requests.get(page_url, verify=False).text
             title= BeautifulSoup(page, "html.parser").find("h1",class_="post-title").text
             print("正在采集" + title)

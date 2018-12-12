@@ -44,7 +44,7 @@ def page(request,i_id):
         tagid=t_id.strip(" ")
         tag=Tag.objects.get(id=tagid).tag
         tags.append({"tname":tag,"tid":tagid})
-    imglist=Image.objects.filter(pageid=i_id,is_cover=False)
+    imglist=Image.objects.filter(pageid=i_id)
     for img_arr in imglist:
         img=img_arr.imageurl
         imgs.append(img)
@@ -58,8 +58,7 @@ def tag(request,tid):
         for pid in page_list:
             if tid in Page.objects.get(id=pid.get("id")).tagid:
                 title = Page.objects.get(id=pid.get("id")).title
-                fid = Page.objects.get(id=pid.get("id")).firstimg
-                firstimg = Image.objects.get(id=fid).imageurl
+                firstimg = Page.objects.get(id=pid.get("id")).firstimg
                 imgs.append({"pid": pid.get("id"), "firstimg": firstimg, "title": title})
         paginator = Paginator(imgs, 6)
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
@@ -87,8 +86,7 @@ def type(request,tid):
         for pid in page_list:
             if tid in Page.objects.get(id=pid.get("id")).typeid:
                 title = Page.objects.get(id=pid.get("id")).title
-                fid = Page.objects.get(id=pid.get("id")).firstimg
-                firstimg = Image.objects.get(id=fid).imageurl
+                firstimg = Page.objects.get(id=pid.get("id")).firstimg
                 imgs.append({"pid": pid.get("id"), "firstimg": firstimg, "title": title})
         paginator = Paginator(imgs, 6)
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
@@ -130,8 +128,7 @@ def search(request):
         pagelist=Page.objects.filter(title__contains=context)
         for page in pagelist:
             title = page.title
-            fid = page.firstimg
-            firstimg = Image.objects.get(pageid=fid, is_cover=True).imageurl
+            firstimg =page.firstimg
             imgs.append({"pid": page.id, "firstimg": firstimg, "title": title})
         paginator = Paginator(imgs, 6)
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
