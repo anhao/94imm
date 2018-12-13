@@ -1,6 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <link rel="dns-prefetch" href="//cdn.bootcss.com"/>
@@ -56,7 +59,6 @@
         <div class="post-lists-body">
         {% load pagination_tags %}
             {% autopaginate data 6 %}
-            {% paginate using "./paginatioin/pagination.html," %}
             {% for imglist in data %}
                 <div class="post-list-item">
                     <div class="post-list-item-container">
