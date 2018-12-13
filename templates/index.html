@@ -56,8 +56,8 @@
         <div class="post-lists-body">
         {% load pagination_tags %}
             {% autopaginate data 6 %}
+            {% paginate using "./paginatioin/pagination.html," %}
             {% for imglist in data %}
-
                 <div class="post-list-item">
                     <div class="post-list-item-container">
                         <div class="item-thumb  bg-deepgrey"
