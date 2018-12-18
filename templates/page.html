@@ -11,7 +11,7 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="shortcut icon" href="https://fenmimi.com/favicon.ico">
+    <link rel="shortcut icon" href="/static/favicon.ico">
     <title>{{ title }}</title>
     {% for t in tag %}
         <meta name="keywords" content="{{ t }}"/>{% endfor %}
@@ -89,11 +89,11 @@
             });
         })();
     </script>
-    <link href="/static/css/xcode.min_5.css" rel="stylesheet">
-    <link href="/static/css/style.min_5.css" rel="stylesheet">
+    <link href="/static/css/xcode.min.css" rel="stylesheet">
+    <link href="/static/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="/static/js/html5.min_5.js"></script>
-    <script src="/static/js/respond.min_5.js"></script>
+    <script src="/static/js/html5.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="" gtools_scp_screen_capture_injected="true">
@@ -105,13 +105,13 @@
 <header id="header" class="header bg-white">
     <div class="navbar-container">
         <a href="/" class="navbar-logo">
-            就是爱妹妹 </a>
+            94iMM </a>
         <div class="navbar-menu">
 
         </div>
         <div class="navbar-search" onclick="">
             <span class="icon-search"></span>
-            <form id="search" method="post" action="https://fenmimi.com/" role="search">
+            <form id="search" method="post" action="http://www.94imm.com/" role="search">
                 <span class="search-box">
                     <input type="text" id="input" class="input" name="s" required="true" placeholder="Search..."
                            maxlength="30" autocomplete="off">
@@ -146,7 +146,9 @@
 </div>
 </div>
 
-<div class="related-post-lists">
+<div class="related-post-lists" style="
+    padding-bottom: 40px;
+">
     <div class="post-lists">
         <div class="post-lists-body">
             {% for itmes in similar %}
@@ -158,7 +160,7 @@
                         <div class="item-title"><a href="{% url 'page' itmes.pid %}">{{ itmes.stitle }}</a></div>
                         <div class="item-meta clearfix">
                             <div class="item-meta-ico bg-ico-web"
-                                 style="background: url(images/bg-ico_4.png) no-repeat;background-size: 40px auto;"></div>
+                                 style="background: url(/static/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
                             <div class="item-meta-cat"><a href="{% url 'type' itmes.tid %}">{{  type }}</a></div>
                         </div>
 
@@ -170,11 +172,11 @@
         </div>
     </div>
 </div>
-<footer id="footer" class="footer bg-white">
+<footer id="footer" class="footer ">
     <div class="footer-social">
         <div class="footer-container clearfix">
             <div class="social-list">
-                <a class="social rss" target="blank" href="https://fenmimi.com/feed/">RSS</a>
+                <a class="social rss" target="blank" href="http://www.94imm.com/feed/">RSS</a>
             </div>
         </div>
     </div>
@@ -182,18 +184,17 @@
         <div class="footer-container">
             <div class="meta-item meta-copyright">
                 <div class="meta-copyright-info">
-                    <a href="https://fenmimi.com/" class="info-logo">
-                       就是爱妹妹</a>
+                    <a href="http://www.94imm.com/" class="info-logo">
+                        94iMM </a>
                     <div class="info-text">
-                        <p>Theme is <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu</a> by <a
-                                href="https://www.linpx.com/" target="_blank">Chakhsu</a></p>
+                        <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
                         <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a></p>
-                        <p>&copy; 2018 <a href="/">就是爱妹妹</a></p>
+                        <p>&copy; 2018 <a href="/">94iMM</a></p>
                     </div>
                 </div>
             </div>
             <div class="meta-item meta-posts">
-                <h3 class="meta-title">RECENT POSTS</h3>
+                <h3 class="meta-title">FRIENDSHIP LINK</h3>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
@@ -204,8 +205,12 @@
                 <li><a href=""></a></li>
             </div>
             <div class="meta-item meta-comments">
-                <h3 class="meta-title">RECENT COMMENTS</h3>
-                <li><a href="/">Typecho : 欢迎加入 Typecho 大家族</a></li>
+                <h3 class="meta-title">STATEMENT</h3>
+                <li><a href="/">本站所有资源均来源于网络<br />
+				如侵犯您权利，请来信告知<br />
+				我们将及时撤销相应资源。<br />
+				联系邮箱：<br />
+				copyright@94imm.com</a></li>
             </div>
         </div>
     </div>
@@ -279,15 +284,8 @@
             return null;
     }
 
-    function addCommentInputValue() {
-        document.getElementById('author').value = getCommentCookie('e111ac3a7dc388c75bc58b85eb127f96__typecho_remember_author');
-        document.getElementById('mail').value = getCommentCookie('e111ac3a7dc388c75bc58b85eb127f96__typecho_remember_mail');
-        document.getElementById('url').value = getCommentCookie('e111ac3a7dc388c75bc58b85eb127f96__typecho_remember_url');
-    }
-
-    addCommentInputValue();
 </script>
-<script src="js/headroom.min_5.js"></script>
+<script src="/static/js/headroom.min.js"></script>
 <script>
     var postSharer = new Headroom(document.getElementById("post-bottom-bar"), {
         tolerance: 0,
@@ -298,7 +296,7 @@
             unpinned: "unpinned"
         }
     });
-    postSharer.init();
+
     var header = new Headroom(document.getElementById("header"), {
         tolerance: 0,
         offset: 70,
@@ -310,5 +308,15 @@
     });
     header.init();
 </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 </body>
 </html>

@@ -1,9 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <link rel="dns-prefetch" href="//cdn.bootcss.com"/>
@@ -15,13 +12,13 @@
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <title>就是爱妹妹</title>
+    <title>94iMM</title>
     <meta name="keywords" content=""/>
-    <link href="/static/css/xcode.min_2.css" rel="stylesheet">
-    <link href="/static/css/style.min_2.css" rel="stylesheet">
+    <link href="/static/css/xcode.min.css" rel="stylesheet">
+    <link href="/static/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="/static/js/html5.min_2.js"></script>
-    <script src="/static/js/respond.min_2.js"></script>
+    <script src="/static/js/html5.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="bg-grey" gtools_scp_screen_capture_injected="true">
@@ -33,9 +30,12 @@
 <header id="header" class="header bg-white">
     <div class="navbar-container">
         <a href="/" class="navbar-logo">
-            就是爱妹妹 </a>
+            94iMM </a>
         <div class="navbar-menu">
-
+			<a href="/">首页</a>
+		{% for types in typelist %}
+             <a href="{% url 'type' types.type_id %}">{{ types.type }}</a>
+        {% endfor %}
         </div>
         <div class="navbar-search" onclick="">
             <span class="icon-search"></span>
@@ -74,15 +74,19 @@
                         <div class="item-label">
                             <div class="item-title"><a href="{% url 'page' imglist.pid %}">{{ imglist.title }}</a></div>
                             <div class="item-meta clearfix">
-                                <div class="item-meta-cat"><a href="/type/1/">性感美女</a></div>
+                                <div class="item-meta-cat">{{ imglist.sendtime }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+			</div>
+			    </div>
+		<div class="lists-navigator clearfix">
         {% paginate %}
-        </div>
-    </div>
+		</div>
+        
+
 
     </div>
 </div>
@@ -92,7 +96,7 @@
     <div class="footer-social">
         <div class="footer-container clearfix">
             <div class="social-list">
-                <a class="social rss" target="blank" href="https://fenmimi.com/feed/">RSS</a>
+                <a class="social rss" target="blank" href="http://www.94imm.com/feed/">RSS</a>
             </div>
         </div>
     </div>
@@ -100,18 +104,17 @@
         <div class="footer-container">
             <div class="meta-item meta-copyright">
                 <div class="meta-copyright-info">
-                    <a href="https://fenmimi.com/" class="info-logo">
-                        就是爱妹妹 </a>
+                    <a href="http://www.94imm.com/" class="info-logo">
+                        94iMM </a>
                     <div class="info-text">
-                        <p>Theme is <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu</a> by <a
-                                href="https://www.linpx.com/" target="_blank">Chakhsu</a></p>
+                        <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
                         <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a></p>
-                        <p>&copy; 2018 <a href="/">就是爱妹妹</a></p>
+                        <p>&copy; 2018 <a href="/">94iMM</a></p>
                     </div>
                 </div>
             </div>
             <div class="meta-item meta-posts">
-                <h3 class="meta-title">RECENT POSTS</h3>
+                <h3 class="meta-title">FRIENDSHIP LINK</h3>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
@@ -122,14 +125,18 @@
                 <li><a href=""></a></li>
             </div>
             <div class="meta-item meta-comments">
-                <h3 class="meta-title">RECENT COMMENTS</h3>
-                <li><a href="/">Typecho : 欢迎加入 Typecho 大家族</a></li>
+                <h3 class="meta-title">STATEMENT</h3>
+                <li><a href="/">本站所有资源均来源于网络<br />
+				如侵犯您权利，请来信告知<br />
+				我们将及时撤销相应资源。<br />
+				联系邮箱：<br />
+				copyright@94imm.com</a></li>
             </div>
         </div>
     </div>
 </footer>
 
-<script src="/static/js/headroom.min_2.js"></script>
+<script src="/static/js/headroom.min.js"></script>
 <script>
     var header = new Headroom(document.getElementById("header"), {
         tolerance: 0,
@@ -142,5 +149,15 @@
     });
     header.init();
 </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 </body>
 </html>

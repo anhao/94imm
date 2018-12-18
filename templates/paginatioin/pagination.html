@@ -1,17 +1,16 @@
 {% if is_paginated %}
 {% load i18n %}
-<nav aria-label="Page navigation example">
-<ul class="pagination">
+<div class="pagination">
   {% block previouslink %}
   {% if page_obj.has_previous %}
   {% if disable_link_for_first_page and page_obj.previous_page_number == 1 %}
-  <li class="page-item"><a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="prev page-link">{{ previous_link_decorator|safe }}{% trans "" %}</a></li>
+  <a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="prev">{{ previous_link_decorator|safe }}{% trans "previous" %}</a>
   {% else %}
-  <li class="page-item"><a href="?page{{ page_suffix }}={{ page_obj.previous_page_number }}{{ getvars }}" class="prev page-link">{{ previous_link_decorator|safe }}{% trans "" %}</a></li>
+  <a href="?page{{ page_suffix }}={{ page_obj.previous_page_number }}{{ getvars }}" class="prev">{{ previous_link_decorator|safe }}{% trans "previous" %}</a>
   {% endif %}
   {% else %}
   {% if display_disabled_previous_link %}
-  <li class="page-item"><span class="disabled prev page-link">{{ previous_link_decorator|safe }}{% trans "previous" %}</span></li>
+  <span class="disabled prev">{{ previous_link_decorator|safe }}{% trans "previous" %}</span>
   {% endif %}
   {% endif %}
   {% endblock previouslink %}
@@ -20,34 +19,28 @@
   {% for page in pages %}
   {% if page %}
   {% ifequal page page_obj.number %}
-  <li class="page-item active"><a class="current page page-link ">{{ page }}<span class="sr-only">(current)</span></a></li>
+  <span class="current page">{{ page }}</span>
   {% else %}
   {% if disable_link_for_first_page and page == 1 %}
-  <li class="page-item"><a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="page page-link">{{ page }}</a></li>
+  <a href="{{ request.path }}{% if getvars %}?{{ getvars|slice:"1:" }}{% endif %}" class="page">{{ page }}</a>
   {% else %}
-  <li class="page-item"><a href="?page{{ page_suffix }}={{ page }}{{ getvars }}" class="page page-link">{{ page }}</a></li>
+  <a href="?page{{ page_suffix }}={{ page }}{{ getvars }}" class="page">{{ page }}</a>
   {% endif %}
   {% endifequal %}
   {% else %}
-  <li class="page-item">...</li>
+  ...
   {% endif %}
   {% endfor %}
   {% endif %}
   {% endblock pagelinks %}
   {% block nextlink %}
   {% if page_obj.has_next %}
-  <li class="page-item"><a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next page-link">{% trans "" %}{{ next_link_decorator|safe }}</a></li>
+  <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next">{% trans "next" %}{{ next_link_decorator|safe }}</a>
   {% else %}
   {% if display_disabled_next_link %}
-  <li class="page-item"><span class="disabled next page-link">{% trans "" %}{{ next_link_decorator|safe }}</span></li>
+  <span class="disabled next">{% trans "next" %}{{ next_link_decorator|safe }}</span>
   {% endif %}
   {% endif %}
   {% endblock nextlink %}
-</ul>
-</nav>
+</div>
 {% endif %}
-
-作者：浩哥2333
-链接：https://www.jianshu.com/p/8a4569107d4a
-來源：简书
-简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
