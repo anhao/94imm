@@ -102,7 +102,7 @@
                                     <div class="inline-block">
                                             <div class="widget-tags">
                                                 {% for t in tag %}
-                                                    <a href="{% url 'tag' t.tid %}">{{ t.tname }}</a></br>
+                                                    <a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>
                                                 {% endfor %}
                                             </div>
                                     </div>
@@ -117,25 +117,6 @@
                                     <div class="clearfix inline-block">
                                                                             </div>
 
-
-                                    <div class="pagination-row">
-
-                                        <div class="pagination-post">
-                                            <div class="prev-post">
-                                                 <a href="{% url 'page' upid %}" title="上一主题"><div class="arrow"><i class="fa fa-angle-double-left"></i></div><div class="pagination-txt"><span>上一主题</span></div></a>                                             </div>
-
-                                            <div class="post-list-link">
-                                                <a href="http://t.ooox.top/">
-                                                    <i class="fa fa-home"></i>
-                                                </a>
-                                            </div>
-
-                                            <div class="next-post">
-                                                 <a href="{% url 'page' npid %}" title="下一主题"><div class="arrow"><i class="fa fa-angle-double-right"></i></div><div class="pagination-txt"><span>下一主题</span></div></a>                                             </div>
-
-                                        </div>
-
-                                    </div>
 <script  data-no-instant>
 (function() {
     window.TypechoComment = {

@@ -72,7 +72,7 @@ ROOT_URLCONF = 'silumz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'+"/"+"pic")]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'+"/"+"94imm")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

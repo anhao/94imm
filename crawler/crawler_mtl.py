@@ -38,8 +38,9 @@ class Spider():
                 except:
                     isExists =1
                 if isExists != 0:
-                    continue
-                self.page_url_list.append(page_url)
+                    print ("已采集")
+				else:
+				    self.page_url_list.append(page_url)
         db.close()
 
     def get_img_url(self):

@@ -9,13 +9,6 @@ class Spider():
     img_url_list = []
     rlock = threading.RLock()
     s=requests.session()
-    dbconf={
-        "dbhost":"192.168.1.67",
-        "dbname":"silumz",
-        "dbuser":"silumz",
-        "dbpass":"fendou2009",
-        "dbport":"3306"
-    }
 
     def __init__(self,page_number=10,img_path='imgdir',thread_number=5,type='meitui',type_id=1):
         self.spider_url = 'https://beauty.coding.ee/'
@@ -26,7 +19,7 @@ class Spider():
         self.type=type
 
     def get_url(self):
-        db = pymysql.connect(self.dbconf.get("dbhost"), self.dbconf.get("dbuser"), self.dbconf.get("dbpass"), self.dbconf.get("dbname"))
+        db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
         cursor = db.cursor()
         for i in range(1, self.page_number+1):
             if i == 1:
@@ -43,14 +36,14 @@ class Spider():
                 isExists = cursor.execute("SELECT title FROM images_page WHERE title =" + "'" + title + "'" + " limit 1;")
                 if isExists != 0:
                     print("已采集："+title)
-                    continue
-                page_url = pages.find("a").get("href")
-                url = self.spider_url + page_url
-                self.page_url_list.append(url)
+				else:
+					page_url = pages.find("a").get("href")
+					url = self.spider_url + page_url
+					self.page_url_list.append(url)
         db.close()
 
     def get_img_url(self):
-        db = pymysql.connect(self.dbconf.get("dbhost"), self.dbconf.get("dbuser"), self.dbconf.get("dbpass"), self.dbconf.get("dbname"))
+        db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
         cursor = db.cursor()
         for page_url in self.page_url_list:
             tagidlist = []
@@ -124,7 +117,7 @@ class Spider():
 
 
 if __name__ == '__main__':
-    for i in [{"page":3,"type":"meitui","type_id":2},{"page":3,"type":"xinggan","type_id":1},{"page":3,"type":"qingchun","type_id":3}]:
+    for i in [{"page":1,"type":"meitui","type_id":2},{"page":1,"type":"xinggan","type_id":1},{"page":1,"type":"qingchun","type_id":3}]:
         spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10,type=i.get("type"),type_id=i.get("type_id"))
         spider.get_url()
         spider.get_img_url()
