@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^page/(?P<i_id>\d+)/$', views.page, name='page'),
     url(r'^tag/(?P<tid>\d+)/$', views.tag, name='tag'),
-    url(r'^type/(?P<tid>\d+)/$', views.tag, name='type'),
+    url(r'^type/(?P<typeid>\d+)/$', views.type, name='type'),
     url(r'^search/', views.search),
 ]

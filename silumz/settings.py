@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
+	'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +58,12 @@ MIDDLEWARE = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/cache', #设置缓存文件的目录
+        'LOCATION': 'cache', #设置缓存文件的目录
+		'TIMEOUT':300, 
+		'OPTIONS':{
+			'MAX_ENTRIES': 300,
+			'CULL_FREQUENCY': 3,         
+  }  
     }
 }
 
@@ -66,7 +72,7 @@ ROOT_URLCONF = 'silumz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'+"/"+"pic")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -142,4 +148,3 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR,'static'),
 )
 
-PAGINATION_DEFAULT_WINDOW=4
