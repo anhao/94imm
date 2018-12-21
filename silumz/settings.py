@@ -61,7 +61,7 @@ CACHES = {
         'LOCATION': 'cache', #设置缓存文件的目录
 		'TIMEOUT':300, 
 		'OPTIONS':{
-			'MAX_ENTRIES': 300,
+			'MAX_ENTRIES': 10240,
 			'CULL_FREQUENCY': 3,         
   }  
     }
