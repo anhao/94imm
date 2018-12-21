@@ -29,6 +29,12 @@
 5.启动程序
   进入程序目录，uwsgi --ini uwsgi.ini
 6.模板修改
+  修改silumz下settings文件中的模板配置
+  TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates'+"/"+"94imm")]
+  94imm为模板名
   模板文件位于templates文件夹下，修改相应页面
 7.其他配置
   将程序目录下的pagination.html文件放入python安装目录的/site-packages/dj_pagination/templates/pagination/下
