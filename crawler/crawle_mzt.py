@@ -31,7 +31,7 @@ class Spider():
             i = i + 1
 
     def get_img_url(self):
-        db = pymysql.connect("192.168.1.67", "silumz", "fendou2009", "silumz")
+        db = pymysql.connect("192.168.1.67", "silumz", "123456", "silumz")
         cursor = db.cursor()
         for img_base_url in self.page_url_list:
             tagidlist = []
