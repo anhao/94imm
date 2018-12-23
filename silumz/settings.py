@@ -148,3 +148,5 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR,'static'),
 )
 
+# dj_pagination
+PAGINATION_DEFAULT_WINDOW=1

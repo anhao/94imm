@@ -13,82 +13,8 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="shortcut icon" href="/static/favicon.ico">
     <title>{{ title }}- 94iMM</title>
-    {% for t in tag %}
-        <meta name="keywords" content="{{ t }}"/>{% endfor %}
+    <meta name="keywords" content="{% for t in tag %}{{ t.tname }},{% endfor %}"/>
     <meta name="description" content="{{ title }}"/>
-    <script type="text/javascript">
-        (function () {
-            var event = document.addEventListener ? {
-                add: 'addEventListener',
-                triggers: ['scroll', 'mousemove', 'keyup', 'touchstart'],
-                load: 'DOMContentLoaded'
-            } : {
-                add: 'attachEvent',
-                triggers: ['onfocus', 'onmousemove', 'onkeyup', 'ontouchstart'],
-                load: 'onload'
-            }, added = false;
-
-            document[event.add](event.load, function () {
-                var r = document.getElementById('respond-post-3526'),
-                    input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = '_';
-                input.value = (function () {
-                    var _emLWN5 = ''///*'cgt'*/'cgt'
-                        +//'b'
-                        '5' +//'CjF'
-                        'a9c' +//'63r'
-                        '518' + '943'//'DiO'
-                        + 'L'//'L'
-                        + '67d'//'op'
-                        + '07a'//'3E'
-                        + 'b7'//'a'
-                        + '63'//'1'
-                        + 'd3'//'X'
-                        +//'v3'
-                        'v3' + 'yE'//'yE'
-                        +//'ga'
-                        'b' + 'Cz'//'Cz'
-                        +//'X'
-                        'cd' + 'ykH'//'ykH'
-                        +//'o9w'
-                        '0' + '0'//'h2n'
-                        +//'0GC'
-                        '7' +//'5'
-                        '90' + 'c'//'4i'
-                        + /* 'c'//'c' */'' + /* 'mr'//'mr' */'' + /* 'H'//'H' */'' +//'t2'
-                        't2' + 'mQr'//'mQr'
-                        +//'5Y'
-                        '5Y' +//'m2'
-                        '4', _ngW = [[10, 11], [22, 24], [22, 24], [23, 25], [25, 28], [31, 33], [31, 34], [31, 33]];
-
-                    for (var i = 0; i < _ngW.length; i++) {
-                        _emLWN5 = _emLWN5.substring(0, _ngW[i][0]) + _emLWN5.substring(_ngW[i][1]);
-                    }
-
-                    return _emLWN5;
-                })();
-
-                if (null != r) {
-                    var forms = r.getElementsByTagName('form');
-                    if (forms.length > 0) {
-                        function append() {
-                            if (!added) {
-                                forms[0].appendChild(input);
-                                added = true;
-                            }
-                        }
-
-                        for (var i = 0; i < event.triggers.length; i++) {
-                            var trigger = event.triggers[i];
-                            document[event.add](trigger, append);
-                            window[event.add](trigger, append);
-                        }
-                    }
-                }
-            });
-        })();
-    </script>
     <link href="/static/94imm/css/xcode.min.css" rel="stylesheet">
     <link href="/static/94imm/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -114,7 +40,7 @@
         </div>
         <div class="navbar-search" onclick="">
             <span class="icon-search"></span>
-            <form id="search" method="post" action="http://www.94imm.com/" role="search">
+            <form id="search" method="GET" action="/search/" role="search">
                 <span class="search-box">
                     <input type="text" id="input" class="input" name="s" required="true" placeholder="Search..."
                            maxlength="30" autocomplete="off">
@@ -132,48 +58,58 @@
         </div>
     </div>
 </header>
-
 <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
             {{ title }} </h1>
         <div class="post-data">
-            <time>{{ time }}</time>
+            <time>{{ time |date:'Y-m-d' }}</time>
             in <a href="{% url 'type' typeid %}">{{ type }}</a>
         </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
 
         <p class="post-tags">
+            {% load pagination_tags %}
+            {% autopaginate data 1 %}
             {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}
-        {% for img in data %}<p><img src="{{ img }}" alt="{{ title }}"/>{% endfor %}
+        {% for img in data %}<p>
+            <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next"><img
+                    src="{{ img }}" alt="{{ title }}"/></a>{% endfor %}
+        <div class="lists-navigator clearfix">
+            {% paginate %}
+        </div>
     </div>
 </article>
-</div>
-</div>
+
 
 <div class="related-post-lists" style="
     padding-bottom: 40px;
 ">
     <div class="post-lists">
         <div class="post-lists-body">
-            {% for itmes in similar %}
-            <div class="post-list-item">
-                <div class="post-list-item-container">
+            {% for items in similar %}
+                <div class="post-list-item">
+                    <div class="post-list-item-container">
+                        <div class="item-thumb  bg-deepgrey" style="background-image:url({{ items.firstimg }});"></div>
+                        <a href="{% url 'page' items.pid %}">
+                            <div class="item-desc">
+                                <p></p>
+                            </div>
+                        </a>
+                        <div class="item-slant reverse-slant  bg-deepgrey"></div>
+                        <div class="item-slant"></div>
+                        <div class="item-label">
+                            <div class="item-title"><a href="{% url 'page' items.pid %}">{{ items.stitle }}</a></div>
+                            <div class="item-meta clearfix">
+                                <div class="item-meta-cat">{{ items.sendtime|date:'Y-m-d' }}</div>
+                            </div>
 
-                    <div class="item-label">
 
-                        <div class="item-title"><a href="{% url 'page' itmes.pid %}">{{ itmes.stitle }}</a></div>
-                        <div class="item-meta clearfix">
-                            <div class="item-meta-ico bg-ico-web"
-                                 style="background: url(/static/94imm/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-                            <div class="item-meta-cat"><a href="{% url 'type' itmes.tid %}">{{  type }}</a></div>
                         </div>
 
                     </div>
-
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
@@ -194,7 +130,8 @@
                         94iMM </a>
                     <div class="info-text">
                         <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
-                        <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a></p>
+                        <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a>
+                        </p>
                         <p>&copy; 2018 <a href="/">94iMM</a></p>
                     </div>
                 </div>
@@ -212,116 +149,23 @@
             </div>
             <div class="meta-item meta-comments">
                 <h3 class="meta-title">STATEMENT</h3>
-                <li><a href="/">本站所有资源均来源于网络<br />
-				如侵犯您权利，请来信告知<br />
-				我们将及时撤销相应资源。<br />
-				联系邮箱：<br />
-				copyright@94imm.com</a></li>
+                <li><a href="/">本站所有资源均来源于网络<br/>
+                    如侵犯您权利，请来信告知<br/>
+                    我们将及时撤销相应资源。<br/>
+                    联系邮箱：<br/>
+                    copyright@94imm.com</a></li>
             </div>
         </div>
     </div>
 </footer>
-
 <script>
+    var _hmt = _hmt || [];
     (function () {
-        window.TypechoComment = {
-            dom: function (id) {
-                return document.getElementById(id);
-            },
-            create: function (tag, attr) {
-                var el = document.createElement(tag);
-                for (var key in attr) {
-                    el.setAttribute(key, attr[key]);
-                }
-                return el;
-            },
-            reply: function (cid, coid) {
-                var comment = this.dom(cid), parent = comment.parentNode,
-                    response = this.dom('respond-post-3526'),
-                    input = this.dom('comment-parent'),
-                    form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
-                    textarea = response.getElementsByTagName('textarea')[0];
-                if (null == input) {
-                    input = this.create('input', {
-                        'type': 'hidden',
-                        'name': 'parent',
-                        'id': 'comment-parent'
-                    });
-
-                    form.appendChild(input);
-                }
-                input.setAttribute('value', coid);
-                if (null == this.dom('comment-form-place-holder')) {
-                    var holder = this.create('div', {
-                        'id': 'comment-form-place-holder'
-                    });
-
-                    response.parentNode.insertBefore(holder, response);
-                }
-                comment.appendChild(response);
-                this.dom('cancel-comment-reply-link').style.display = '';
-                if (null != textarea && 'text' == textarea.name) {
-                    textarea.focus();
-                }
-                return false;
-            },
-            cancelReply: function () {
-                var response = this.dom('respond-post-3526'),
-                    holder = this.dom('comment-form-place-holder'),
-                    input = this.dom('comment-parent');
-                if (null != input) {
-                    input.parentNode.removeChild(input);
-                }
-                if (null == holder) {
-                    return true;
-                }
-                this.dom('cancel-comment-reply-link').style.display = 'none';
-                holder.parentNode.insertBefore(response, holder);
-                return false;
-            }
-        };
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
     })();
-
-    function getCommentCookie(name) {
-        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-        if (arr = document.cookie.match(reg))
-            return unescape(decodeURI(arr[2]));
-        else
-            return null;
-    }
-
-</script>
-<script src="/static/94imm/js/headroom.min.js"></script>
-<script>
-    var postSharer = new Headroom(document.getElementById("post-bottom-bar"), {
-        tolerance: 0,
-        offset: 70,
-        classes: {
-            initial: "animated",
-            pinned: "pinned",
-            unpinned: "unpinned"
-        }
-    });
-
-    var header = new Headroom(document.getElementById("header"), {
-        tolerance: 0,
-        offset: 70,
-        classes: {
-            initial: "animated",
-            pinned: "slideDown",
-            unpinned: "slideUp"
-        }
-    });
-    header.init();
-</script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
 </script>
 
 </body>

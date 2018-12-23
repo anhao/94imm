@@ -6,6 +6,11 @@ requests.packages.urllib3.disable_warnings()
 requests.adapters.DEFAULT_RETRIES = 5
 
 class Spider():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/65.0.3325.181 Safari/537.36',
+        'Referer': "https://beauty.coding.ee"
+    }
     page_url_list = []
     img_url_list = []
     rlock = threading.RLock()
@@ -34,14 +39,9 @@ class Spider():
             page = self.s.post(self.spider_url, data=data, verify=False).text
             soup = BeautifulSoup(page, "html.parser").find("div", class_="main").find_all("dt")
             for pages in soup:
-                title = pages.find("img").get("alt")
-                isExists = cursor.execute("SELECT title FROM images_page WHERE title =" + "'" + title + "'" + " limit 1;")
-                if isExists == 1:
-                    print("已采集：" + title)
-                else:
-                    page_url = pages.find("a").get("href")
-                    url = self.spider_url + page_url
-                    self.page_url_list.append(url)
+                page_url = pages.find("a").get("href")
+                url = self.spider_url + page_url
+                self.page_url_list.append(url)
         db.close()
 
     def get_img_url(self):
@@ -53,34 +53,37 @@ class Spider():
             soup = BeautifulSoup(page, "html.parser")
             img = soup.find("div", id="picbox").find("img").get("src")
             title=soup.find("div",class_="title").find("h2").text
-            print("添加图片："+title)
-            taglist = re.findall('<meta name="keywords" content="(.*?)" />', page)
-            for tags in taglist:
-                for tag in tags:
-                    sqltag = "SELECT * FROM images_tag WHERE tag =" + "'" + tag + "'" + " limit 1;"
-                    isExiststag = cursor.execute(sqltag)
-                    if isExiststag == 0:
-                        cursor.execute("INSERT INTO images_tag (tag) VALUES (%s)", tag)
-                    cursor.execute("SELECT id FROM images_tag WHERE tag =" + "'" + tag + "'")
-                    for id in cursor.fetchall():
-                        tagidlist.append(id[0])
-            p = (title, str(tagidlist), time.strftime('%Y-%m-%d', time.localtime(time.time())), self.type_id, "1")
-            cursor.execute("INSERT INTO images_page (title,tagid,sendtime,typeid,firstimg) VALUES (%s,%s,%s,%s,%s)", p)
-            pageid = cursor.lastrowid
-            img_base_url = "/".join(img.split("/")[0:-1]) + "/"
-            img_num = soup.find("div", id="page").text.split(" ")[-2]
-            i = 1
-            for i in range(1, int(img_num) + 1):
-                url = img_base_url + str(i) + ".jpg"
-                img_loc_path = self.img_path + "/".join(url.split("/")[-2:])
-                if i == 1:
-                    cursor.execute(
-                        "UPDATE images_page SET firstimg = " + "'" + img_loc_path + "'" + " WHERE title=" + "'" + title + "'")
-                i = i + 1
-                imgp = pageid, img_loc_path
-                cursor.execute("INSERT INTO images_image (pageid,imageurl) VALUES (%s,%s)", imgp)
-                i = i + 1
-                self.img_url_list.append(url)
+            isExists = cursor.execute("SELECT title FROM images_page WHERE title =" + "'" + title + "'" + " limit 1;")
+            if isExists != 0:
+                print("已采集：" + title)
+            else:
+                print("添加图片："+title)
+                taglist = re.findall('<meta name="keywords" content="(.*?)" />', page)
+                for tags in taglist:
+                    for tag in tags.split(","):
+                        sqltag = "SELECT * FROM images_tag WHERE tag =" + "'" + tag + "'" + " limit 1;"
+                        isExiststag = cursor.execute(sqltag)
+                        if isExiststag == 0:
+                            cursor.execute("INSERT INTO images_tag (tag) VALUES (%s)", tag)
+                        cursor.execute("SELECT id FROM images_tag WHERE tag =" + "'" + tag + "'")
+                        for id in cursor.fetchall():
+                            tagidlist.append(id[0])
+                p = (title, str(tagidlist), time.strftime('%Y-%m-%d', time.localtime(time.time())), self.type_id, "1")
+                cursor.execute("INSERT INTO images_page (title,tagid,sendtime,typeid,firstimg) VALUES (%s,%s,%s,%s,%s)", p)
+                pageid = cursor.lastrowid
+                img_base_url = "/".join(img.split("/")[0:-1]) + "/"
+                img_num = soup.find("div", id="page").text.split(" ")[-2]
+                i = 1
+                for i in range(1, int(img_num) + 1):
+                    url = img_base_url + str(i) + ".jpg"
+                    img_loc_path = self.img_path + "/".join(url.split("/")[-2:])
+                    if i == 1:
+                        cursor.execute(
+                            "UPDATE images_page SET firstimg = " + "'" + img_loc_path + "'" + " WHERE title=" + "'" + title + "'")
+                    imgp = pageid, img_loc_path
+                    cursor.execute("INSERT INTO images_image (pageid,imageurl) VALUES (%s,%s)", imgp)
+                    i = i + 1
+                    self.img_url_list.append(url)
         db.close()
 
     def down_img(self,imgsrc):
@@ -91,7 +94,7 @@ class Spider():
             os.mkdir("../" + self.img_path + imgsrc.split("/")[-2])
         with open("../" + self.img_path + path, "wb")as f:
             print("下载图片："+self.img_path + path)
-            f.write(s.get(imgsrc, verify=False).content)
+            f.write(s.get(imgsrc, headers=self.headers,verify=False).content)
 
     def down_url(self):
         while True:

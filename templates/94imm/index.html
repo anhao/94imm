@@ -12,8 +12,9 @@
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <title>94iMM</title>
-    <meta name="keywords" content=""/>
+    <title>94iMM -妹子图片分享</title>
+    <meta name="keywords" content="妹子图片,美女图片,性感美女,丝袜美腿,清纯,少女,萝莉"/>
+	<meta name="description" content="94imm分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
     <link href="/static/94imm/css/xcode.min.css" rel="stylesheet">
     <link href="/static/94imm/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -39,7 +40,7 @@
         </div>
         <div class="navbar-search" onclick="">
             <span class="icon-search"></span>
-            <form id="search" method="POST" action="/search/" role="search">
+            <form id="search" method="GET" action="/search/" role="search">
                 <span class="search-box">
                     <input type="text" id="input" class="input" name="s" required="true" placeholder="Search..."
                            maxlength="30" autocomplete="off">
@@ -77,7 +78,7 @@
                         <div class="item-label">
                             <div class="item-title"><a href="{% url 'page' imglist.pid %}">{{ imglist.title }}</a></div>
                             <div class="item-meta clearfix">
-                                <div class="item-meta-cat">{{ imglist.sendtime }}</div>
+                                <div class="item-meta-cat">{{ imglist.sendtime |date:'Y-m-d' }}</div>
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,7 @@
 		<div class="lists-navigator clearfix">
         {% paginate %}
 		</div>
-        
+
 
 
     </div>

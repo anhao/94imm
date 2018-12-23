@@ -31,9 +31,8 @@ def page(request, i_id):
     typelist = []
     time = page_arr.sendtime
     typeid = page_arr.typeid
-    type = Type.objects.get(id=typeid).type
+    pagetype = Type.objects.get(id=typeid).type
     title = page_arr.title
-    pid=page_arr.id
     taglist = page_arr.tagid
     tag_arr = taglist.replace("[", "").replace("]", "").split(",")
     type_list = Type.objects.all().order_by("id")
@@ -50,8 +49,8 @@ def page(request, i_id):
         img = img_arr.imageurl
         imgs.append(img)
     return render(request, 'page.html',
-                  {"data": imgs, "tag": tags, "title": title, "type": type, "typeid": typeid, "time": time,
-                   "similar": similar(typeid),"typelist":typelist,"pid":pid,"upid":pid-1,"npid":pid+1})
+                  {"data": imgs, "tag": tags, "title": title, "type": pagetype, "typeid": typeid, "time": time,
+                   "similar": similar(typeid),"typelist":typelist})
 
 
 def tag(request, tid):
@@ -103,13 +102,15 @@ def similar(id):
             stitle = s.title
             pid = s.id
             tid = s.typeid
-            similarlist.append({"stitle": stitle, "tid": tid, "pid": pid})
+            firstimg=s.firstimg
+            sendtime=s.sendtime
+            similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
             i += 1
     return similarlist
 
 
 def search(request):
-    if request.method == "POST":
+    if "s"in request.GET:
         imgs = []
         typelist = []
         type_list = Type.objects.all().order_by("id")
@@ -117,12 +118,13 @@ def search(request):
             type = type_arr.type
             type_id = type_arr.id
             typelist.append({"type": type, "type_id": type_id})
-        context = request.POST['s']
+        context = request.GET['s']
         pagelist = Page.objects.filter(title__contains=context).order_by("-id")
         for page in pagelist:
             title = page.title
-            id=page.id
+            id = page.id
             firstimg = page.firstimg
             sendtime = page.sendtime
             imgs.append({"pid": id, "firstimg": firstimg, "title": title, "sendtime": sendtime})
-        return render(request, 'index.html', {"data": imgs,"typelist":typelist})
+        return render(request, 'index.html', {"data": imgs, "typelist": typelist})
+
