@@ -467,7 +467,6 @@ pre {
 
 .inline-block {
     display: inline-block;
-    width: 100%;
 }
 
 .relative {
@@ -2403,7 +2402,7 @@ body {
 .page-content {
     display: inline-block;
     width: 100%; 
-    padding: 100px 0;
+    padding: 20px 0;
 }
 
 .page-content-sm {
@@ -3854,6 +3853,7 @@ header li.nav-icon .cart-table-list a {
  ===============================================*/
 .blog-classic {
     border-bottom: 1px solid #efefef;
+	text-align:-webkit-center
 }
 
 .blog-classic .date {
@@ -6182,7 +6182,7 @@ Table of contents
         display: block;
         width: 100%;
         padding: 12px 20px;
-        border-bottom: solid 1px #f0f0f0;
+        border-top: solid 1px #f0f0f0;
     }
     .menuzord-responsive .menuzord-menu > li:first-child > a {
         border-top: solid 1px #f0f0f0;

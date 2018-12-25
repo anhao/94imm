@@ -1,4 +1,6 @@
-﻿from bs4 import BeautifulSoup
+﻿#coding='UTF-8'
+
+from bs4 import BeautifulSoup
 import threading,pymysql,time,requests,os,urllib3
 requests.packages.urllib3.disable_warnings()
 
@@ -12,6 +14,12 @@ class Spider():
     img_url_list = []
     rlock = threading.RLock()
     s=requests.session()
+    dbhost={
+        "host":"127.0.0.1",
+        "dbname":"xxxx",
+        "user":"root",
+        "password":"xxxx"
+    }
 
     def __init__(self,page_number=10,img_path='imgdir',thread_number=5):
         self.spider_url = 'https://www.mzitu.com/xinggan/page/'
@@ -31,7 +39,8 @@ class Spider():
             i = i + 1
 
     def get_img_url(self):
-        db = pymysql.connect("192.168.1.67", "silumz", "123456", "silumz")
+        db = pymysql.connect(self.dbhost.get("host"), self.dbhost.get("user"), self.dbhost.get("password"),
+                             self.dbhost.get("dbname"))
         cursor = db.cursor()
         for img_base_url in self.page_url_list:
             tagidlist = []

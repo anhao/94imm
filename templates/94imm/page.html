@@ -74,8 +74,13 @@
             {% autopaginate data 1 %}
             {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}
         {% for img in data %}<p>
+		{% if page_obj.has_next %}
             <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next"><img
-                    src="{{ img }}" alt="{{ title }}"/></a>{% endfor %}
+                    src="{{ img }}" alt="{{ title }}"/></a>
+		{% else %}
+			<img src="{{ img }}" alt="{{ title }}"/>
+		{% endif %}
+		{% endfor %}
         <div class="lists-navigator clearfix">
             {% paginate %}
         </div>

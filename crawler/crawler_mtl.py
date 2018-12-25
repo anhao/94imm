@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#coding='UTF-8'
 from bs4 import BeautifulSoup
 import threading,pymysql,time,requests,os,urllib3
 requests.packages.urllib3.disable_warnings()
@@ -15,9 +15,9 @@ class Spider():
     s=requests.session()
     dbhost={
         "host":"127.0.0.1",
-        "dbname":"silumz",
+        "dbname":"xxxx",
         "user":"root",
-        "password":"123456"
+        "password":"xxxx"
     }
 
     def __init__(self,page_number=10,img_path='imgdir',thread_number=5,type='xinggan',type_id=1):
@@ -118,7 +118,7 @@ class Spider():
         #     download_t = threading.Thread(target=self.down_url)
         #     download_t.start()
 
-
+# 采集参数，page为采集页数，type为原站分类,type_id为本站分类id	
 if __name__ == '__main__':
     for i in [{"page": 1, "type": "1290", "type_id": 4}]:
         spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10,type=i.get("type"),type_id=i.get("type_id"))

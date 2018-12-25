@@ -8,7 +8,8 @@
     <title>{{ title }}-94iMM</title>
     <!--common style-->
     <link href='//fonts.cat.net/css?family=Abel|Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic,900,900italic,200italic,200' rel='stylesheet' type='text/css'>
-
+	<meta name="keywords" content="{% for t in tag %}{{ t.tname }},{% endfor %}"/>
+    <meta name="description" content="{{ title }}"/>
     <!-- inject:css -->
     <link rel="stylesheet" href="/static/pic/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/pic/css/font-awesome.min.css">
@@ -64,7 +65,7 @@
                         <li>
                             <a href="javascript:void(0)"><i class="fa fa-search"></i> 搜索</a>
                             <div class="megamenu megamenu-quarter-width navbar-search">
-                                <form id="search" method="post" action="/search/" role="searchform">
+                                <form id="search" method="GET" action="/search/" role="searchform">
                                     <input type="text" name="s" class="form-control" placeholder="在这里输入">
                                 </form>
                             </div>
@@ -95,7 +96,7 @@
                                     </div>
                                     <h4 class="text-uppercase"><a itemtype="url" href="#">{{ title }}</a></h4>
                                     <ul class="post-meta">
-                                        <li><i class="fa fa-user"></i>time <a itemprop="name" href="#" rel="author">{{ time }}</a>
+                                        <li><i class="fa fa-user"></i>time <a itemprop="name" href="#" rel="author">{{ time |date:'Y-m-d'}}</a>
                                         </li>
                                         <li><i class="fa fa-folder-open"></i>  <a href="{% url 'type' typeid %}">{{ type }}</a></li>
                                     </ul>
@@ -107,75 +108,23 @@
                                             </div>
                                     </div>
                                     <br>
+                                {% load pagination_tags %}
+                                {% autopaginate data 1 %}
                                     {% for img in data %}
-                                        <img src="{{ img }}" alt="{{ title }}" title="{{ title }}"><br>
+                                        <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" > <img src="{{ img }}" alt="{{ title }}" title="{{ title }}"></a><br>
                                     {% endfor %}
-                                    </p>
+
+                                </p>
+                                 <div class="text-center">
+					                {% paginate %}
+                    <!--pagination-->
+                                 </div>
                                     </div>
 
 
                                     <div class="clearfix inline-block">
                                                                             </div>
 
-<script  data-no-instant>
-(function() {
-    window.TypechoComment = {
-        dom: function(id) {
-            return document.getElementById(id);
-        },
-        create: function(tag, attr) {
-            var el = document.createElement(tag);
-            for (var key in attr) {
-                el.setAttribute(key, attr[key]);
-            }
-            return el;
-        },
-        reply: function(cid, coid) {
-            var comment = this.dom(cid),
-                parent = comment.parentNode,
-                response = this.dom('respond-post-1'),
-                input = this.dom('comment-parent'),
-                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
-                textarea = response.getElementsByTagName('textarea')[0];
-            if (null == input) {
-                input = this.create('input', {
-                    'type': 'hidden',
-                    'name': 'parent',
-                    'id': 'comment-parent'
-                });
-                form.appendChild(input);
-            }
-            input.setAttribute('value', coid);
-            if (null == this.dom('comment-form-place-holder')) {
-                var holder = this.create('div', {
-                    'id': 'comment-form-place-holder'
-                });
-                response.parentNode.insertBefore(holder, response);
-            }
-            comment.appendChild(response);
-            this.dom('cancel-comment-reply-link').style.display = '';
-            if (null != textarea && 'text' == textarea.name) {
-                textarea.focus();
-            }
-            return false;
-        },
-        cancelReply: function() {
-            var response = this.dom('respond-post-1'),
-                holder = this.dom('comment-form-place-holder'),
-                input = this.dom('comment-parent');
-            if (null != input) {
-                input.parentNode.removeChild(input);
-            }
-            if (null == holder) {
-                return true;
-            }
-            this.dom('cancel-comment-reply-link').style.display = 'none';
-            holder.parentNode.insertBefore(response, holder);
-            return false;
-        }
-    };
-})();
-</script>
 									                                    <!--comments  section end-->
                             </div>
                             <!--classic image post-->
@@ -198,7 +147,7 @@
         <footer id="footer" class="gray text-center footer-1">
             <div class="container">
                 <p class="footer-logo">
-                    <img class="retina" src="/static/logo.png" alt="" />
+                    <img class="retina" src="/static/pic/logo.png" alt="" />
                 </p>
                 <div class="sub-title">美图分享,每日更新.</div>
                 <div class="copyright">

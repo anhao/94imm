@@ -3,11 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link href='//fonts.cat.net/css?family=Abel|Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic,900,900italic,200italic,200' rel='stylesheet' type='text/css'>
     <!--favicon icon-->
     <link rel="icon" type="image/png" href="/static/favicon.ico">
     <title> 94iMM</title>
+	<meta name="keywords" content="妹子图片,美女图片,性感美女,丝袜美腿,清纯,少女,萝莉"/>
+	<meta name="description" content="94imm分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
     <!--common style-->
-    <link href='/static/pic/css/259247fda49d4bb8b85503482c4becec.css' rel='stylesheet' type='text/css'>
+    <link href='/static/pic/css/index.css' rel='stylesheet' type='text/css'>
 
     <!-- inject:css -->
     <link rel="stylesheet" href="/static/pic/css/bootstrap.min.css">
@@ -65,7 +68,7 @@
                         <li>
                             <a href="javascript:void(0)"><i class="fa fa-search"></i> 搜索</a>
                             <div class="megamenu megamenu-quarter-width navbar-search">
-                                <form id="search" method="post" action="/search/" role="searchform">
+                                <form id="search" method="GET" action="/search/" role="searchform">
                                     <input type="text" name="s" class="form-control" placeholder="在这里输入">
                                 </form>
                             </div>
@@ -91,39 +94,22 @@
                         {% autopaginate data 12 %}
                         {% for imglist in data %}
                     <div class="portfolio-item ">
-                        <div class="thumb">
+                        <a href="{% url 'page' imglist.pid %}">
+						<div class="thumb">
                             <img src="{{ imglist.firstimg }}" alt="{{ imglist.title }}">
                             <div class="portfolio-hover">
                                 <div class="action-btn">
-                                    <a href="{% url 'page' imglist.pid %}">
                                         <!--<i class="fa fa-send"></i> -->
                                         {{ imglist.title }}
-                                    </a>
+									
                                 </div>
                             </div>
                         </div>
-
+                        </a>
                     </div>
                     {% endfor %}
 
                 </div>
-
-                        <!--
-                                                    <div class="portfolio-title">
-                                                        <h4><a href="http://t.ooox.top/index.php/archives/32/">胸器女王李宓儿性感透视蕾丝内衣图片</a></h4>
-                                                        <div class="date">admin , 2018/12/19</div>
-                                                        <p></p>
-                                                        <div class="m-top-20 m-bot-20"><a href="http://t.ooox.top/index.php/archives/32/" class="btn btn-extra-small btn-dark-border btn-transparent"> Read More</a>
-                                                        </div>
-                                                    </div>
-                        --
-
-
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <!--pagination-->
                 <div class="text-center">
                 </div>
             <!--pagination-->
@@ -142,7 +128,7 @@
     <footer id="footer" class="gray text-center footer-1">
             <div class="container">
                 <p class="footer-logo">
-                    <img class="retina" src="/static/logo.png" alt="" />
+                    <img class="retina" src="/static/pic/logo.png" alt="" />
                 </p>
                 <div class="sub-title">美图分享,每日更新.</div>
                 <div class="copyright">
