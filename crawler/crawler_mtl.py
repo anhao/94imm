@@ -107,18 +107,17 @@ class Spider():
 
 
     def run(self):
-        print("开始下载")
         # 启动thread_num个进程来爬去具体的img url 链接
         # for th in range(self.thread_num):
         #     add_pic_t = threading.Thread(target=self.get_img_url)
         #     add_pic_t.start()
 
         # 启动thread_num个来下载图片
-        # for img_th in range(self.thread_num):
-        #     download_t = threading.Thread(target=self.down_url)
-        #     download_t.start()
+        for img_th in range(self.thread_num):
+            download_t = threading.Thread(target=self.down_url)
+            download_t.start()
 
-# 采集参数，page为采集页数，type为原站分类,type_id为本站分类id	
+# 采集参数，page为采集页数，type为原站分类,type_id为本站分类id
 if __name__ == '__main__':
     for i in [{"page": 1, "type": "1290", "type_id": 4}]:
         spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10,type=i.get("type"),type_id=i.get("type_id"))
