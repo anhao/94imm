@@ -52,7 +52,7 @@ class Spider():
         db.close()
 
     def get_img_url(self):
-       db = pymysql.connect(self.dbhost.get("host"), self.dbhost.get("user"), self.dbhost.get("password"),
+        db = pymysql.connect(self.dbhost.get("host"), self.dbhost.get("user"), self.dbhost.get("password"),
                              self.dbhost.get("dbname"))
         cursor = db.cursor()
         for page_url in self.page_url_list:
