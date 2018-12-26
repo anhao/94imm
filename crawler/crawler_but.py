@@ -9,7 +9,7 @@ class Spider():
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/65.0.3325.181 Safari/537.36',
-        'Referer': "https://beauty.coding.ee/"
+        'Referer': "https://beauty.coding.ee"
     }
     page_url_list = []
     img_url_list = []
@@ -80,8 +80,9 @@ class Spider():
                 cursor.execute("INSERT INTO images_page (title,tagid,sendtime,typeid,firstimg) VALUES (%s,%s,%s,%s,%s)", p)
                 pageid = cursor.lastrowid
                 img_base_url = "/".join(img.split("/")[0:-1]) + "/"
-                img_num = soup.find("div", id="page").text.split(" ")[-2]
-                i = 1
+                img_num_soup=soup.find("span", id="picCount").text
+                num_re=re.compile(r'\d+')
+                img_num =num_re.findall(img_num_soup)[0]
                 for i in range(1, int(img_num)):
                     url = img_base_url + str(i) + ".jpg"
                     img_loc_path = self.img_path + "/".join(url.split("/")[-2:])
