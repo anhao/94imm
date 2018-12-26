@@ -9,7 +9,7 @@ class Spider():
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/65.0.3325.181 Safari/537.36',
-        'Referer': "https://beauty.coding.ee"
+        'Referer': "https://beauty.coding.ee/"
     }
     page_url_list = []
     img_url_list = []
@@ -24,7 +24,7 @@ class Spider():
     }
 
     def __init__(self,page_number=10,img_path='imgdir',thread_number=5,type='meitui',type_id=1):
-        self.spider_url = 'http://photo.thissec.com/'
+        self.spider_url = 'https://beauty.coding.ee/'
         self.page_number = int(page_number)
         self.img_path = img_path
         self.thread_num = thread_number
@@ -95,14 +95,15 @@ class Spider():
         db.close()
 
     def down_img(self,imgsrc):
-        s=requests.session()
+        # for imgsrc in self.img_url_list:
+        s=self.s
         path = imgsrc.split("/")[-2] + "/" + imgsrc.split("/")[-1]
         isdata = os.path.exists("../" + self.img_path + imgsrc.split("/")[-2])
         if isdata == False:
             os.mkdir("../" + self.img_path + imgsrc.split("/")[-2])
         with open("../" + self.img_path + path, "wb")as f:
-            print("下载图片："+self.img_path + path)
             f.write(s.get(imgsrc, headers=self.headers,verify=False).content)
+            print("下载图片：" + self.img_path + path)
 
     def down_url(self):
         while True:
@@ -136,4 +137,5 @@ if __name__ == '__main__':
         spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10,type=i.get("type"),type_id=i.get("type_id"))
         spider.get_url()
         spider.get_img_url()
-        spider.run()
+        spider.down_url()
+        # spider.run()

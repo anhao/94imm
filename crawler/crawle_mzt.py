@@ -17,7 +17,7 @@ class Spider():
     dbhost={
         "host":"127.0.0.1",
         "dbname":"xxxx",
-        "user":"root",
+        "user":"xxxx",
         "password":"xxxx"
     }
 
@@ -52,7 +52,7 @@ class Spider():
             isExists = cursor.execute("SELECT * FROM images_page WHERE title =" + "'" + title + "'" + " limit 1;")
             tag_list = img_soup.find("div", class_="main-tags").find("a").text
             if isExists == 1:
-                print("已存在")
+                print("已采集："+title)
             else:
                 for tag in tag_list:
                     sqltag = "SELECT * FROM images_tag WHERE tag =" + "'" + tag + "'" + " limit 1;"
@@ -71,7 +71,7 @@ class Spider():
                     temp_url = img_soup.find("div", class_="main-image").find("img").get("src").split("/")
                     path = temp_url[-1][0:3]
                     new_url = img_surl + "/" + path + str("%02d" % i) + ".jpg"
-                    img_src = temp_url[-3] + "/" + temp_url[-2] + "/" + temp_url[-1]
+                    img_src = temp_url[-3] + "/" + temp_url[-2] + "/" + path + str("%02d" % i) + ".jpg"
                     imgp = pageid, self.img_path + img_src
                     cursor.execute("INSERT INTO images_image (pageid,imageurl) VALUES (%s,%s)", imgp)
                     if i == 1:
@@ -87,7 +87,7 @@ class Spider():
         if isdata == False:
             os.makedirs("../" + self.img_path + path)
         with open("../" + self.img_path + path + "/" + imgsrc.split("/")[-1], "wb")as f:
-            print("下载图片：" + self.img_path + path)
+            print("下载图片：" + self.img_path + path + "/" + imgsrc.split("/")[-1])
             f.write(requests.get(imgsrc, headers=self.headers, verify=False).content)
 
     def down_url(self):
