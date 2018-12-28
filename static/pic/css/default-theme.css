@@ -61,7 +61,7 @@ a,
 .cd-nav .cd-primary-nav li.selected a,
 .no-touch .cd-nav .cd-primary-nav a:hover,
 .intro-portfolio a:hover {
-    color: #d6b161;
+    color: rgba(1,1,1,70);
 }
 
 .theme-color {
