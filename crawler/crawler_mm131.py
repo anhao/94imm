@@ -97,7 +97,7 @@ class Spider():
                     img_url_path = baseurl[-2]
                     img_type = baseurl[-1].split(".")[-1]
                     img_loc_path = self.img_path + time.strftime('%Y%m%d', time.localtime(
-                        time.time())) + "/" + img_url_path + "/" + str(i) + "." + img_type
+                        time.time())) + "/" + img_url_path + "/" + str(i+1) + "." + img_type
                     if i == 1:
                         cursor.execute(
                             "UPDATE images_page SET firstimg = " + "'" + img_loc_path + "'" + " WHERE id=" + "'" + str(
