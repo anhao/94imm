@@ -146,7 +146,7 @@ class Spider():
 if __name__ == "__main__":
     for i in [{"page": 1, "type": "xinggan", "type_id": 1}, {"page": 1, "type": "qingchun", "type_id": 3},
               {"page": 1, "type": "xiaohua", "type_id": 3}, {"page": 1, "type": "chemo", "type_id": 1},
-              {"page": 1, "type": "qiao", "type_id": 2}, {"page": 1, "type": "mingxing", "type_id": 1}]:
+              {"page": 1, "type": "qipao", "type_id": 2}, {"page": 1, "type": "mingxing", "type_id": 1}]:
         spider = Spider(page_num=i.get("page"), img_path='/static/images/', thread_num=10, type_id=i.get("type_id"),
                         type=i.get("type"))
         spider.get_url()
