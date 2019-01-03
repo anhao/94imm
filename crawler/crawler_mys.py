@@ -111,7 +111,7 @@ class Spider():
                 except Exception as e:
                     pass
 
-    def run(self)
+    def run(self):
         # 启动thread_num个来下载图片
         for img_th in range(self.thread_num):
             download_t = threading.Thread(target=self.down_url)
