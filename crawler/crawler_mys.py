@@ -1,7 +1,16 @@
-#coding='UTF-8'
+# coding='UTF-8'
 from bs4 import BeautifulSoup
-import threading,pymysql,time,requests,os,urllib3,re
+import threading, pymysql, time, requests, os, urllib3, re
+
 requests.packages.urllib3.disable_warnings()
+# 数据库连接信息
+dbhost = {
+    "host": "127.0.0.1",
+    "dbname": "xxxx",
+    "user": "root",
+    "password": "xxxx"
+}
+
 
 class Spider():
     headers = {
@@ -12,17 +21,17 @@ class Spider():
     page_url_list = []
     img_url_list = []
     rlock = threading.RLock()
-    s=requests.session()
+    s = requests.session()
 
-    def __init__(self,page_number=10,img_path='imgdir',thread_number=5,type='xinggan',type_id=1,typename='meinv'):
-        self.spider_url = 'http://www.moyunso.com/'+typename+'/list_'+type+'_'
+    def __init__(self, page_number=10, img_path='imgdir', thread_number=5, type='xinggan', type_id=1, typename='meinv'):
+        self.spider_url = 'http://www.moyunso.com/' + typename + '/list_' + type + '_'
         self.page_number = int(page_number)
         self.img_path = img_path
         self.thread_num = thread_number
         self.type_id = type_id
 
     def get_url(self):
-        for i in range(1, self.page_number+1):
+        for i in range(1, self.page_number + 1):
             page_base_page = BeautifulSoup(requests.get(self.spider_url + str(i) + ".html").content, "html.parser")
             page_div = page_base_page.find_all("div", class_="listBoxTitle")
             for div in page_div:
@@ -31,7 +40,7 @@ class Spider():
                 self.page_url_list.append(page_url)
 
     def get_img_url(self):
-        db = pymysql.connect("127.0.0.1", "root", "fendou2009", "silumz")
+        db = pymysql.connect(dbhost.get("host"), dbhost.get("user"), dbhost.get("password"), dbhost.get("dbname"))
         cursor = db.cursor()
         for url in self.page_url_list:
             tagidlist = []
@@ -79,14 +88,14 @@ class Spider():
                     self.img_url_list.append(img_src)
         db.close()
 
-    def down_img(self,imgsrc):
+    def down_img(self, imgsrc):
         path = imgsrc.split("/")[-2]
         isdata = os.path.exists("../" + self.img_path + path)
         if isdata == False:
             os.makedirs("../" + self.img_path + path)
         with open("../" + self.img_path + path + "/" + imgsrc.split("/")[-1], "wb")as f:
             f.write(requests.get(imgsrc, headers=self.headers, verify=False).content)
-            print("下载完成："+self.img_path + path)
+            print("下载完成：" + self.img_path + path)
 
     def down_url(self):
         while True:
@@ -102,13 +111,7 @@ class Spider():
                 except Exception as e:
                     pass
 
-
-    def run(self):
-        # 启动thread_num个进程来爬去具体的img url 链接
-        # for th in range(self.thread_num):
-        #     add_pic_t = threading.Thread(target=self.get_img_url)
-        #     add_pic_t.start()
-
+    def run(self)
         # 启动thread_num个来下载图片
         for img_th in range(self.thread_num):
             download_t = threading.Thread(target=self.down_url)
@@ -117,8 +120,9 @@ class Spider():
 
 # 采集参数，page为采集页数，type为原站分类id，typename为原站分类名,type_id为本站分类id			
 if __name__ == '__main__':
-    for i in [{"page": 2, "type": "1", "type_id": 2,"typename":"meinv"}]:
-        spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10,type=i.get("type"),type_id=i.get("type_id"),typename=i.get("typename"))
+    for i in [{"page": 2, "type": "1", "type_id": 2, "typename": "meinv"}]:
+        spider = Spider(page_number=i.get("page"), img_path='/static/images/', thread_number=10, type=i.get("type"),
+                        type_id=i.get("type_id"), typename=i.get("typename"))
         spider.get_url()
         spider.get_img_url()
         spider.run()
