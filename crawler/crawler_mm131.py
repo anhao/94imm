@@ -91,7 +91,7 @@ class Spider():
                 img_first_url = page_div.find("img").get("src")
                 img_num_soup = soup.find("div", class_="content-page").find("span").text
                 img_num = "".join(re.findall(r"\d", img_num_soup))
-                for i in range(1, int(img_num) + 1):
+                for i in range(0, int(img_num)):
                     baseurl = img_first_url.split("/")
                     img_url = "/".join(baseurl[0:-3])
                     img_url_path = baseurl[-2]
