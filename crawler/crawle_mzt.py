@@ -56,11 +56,13 @@ class Spider():
             img_surl = "/".join(img_url)
             title = img_soup.find("h2", class_="main-title").text
             isExists = cursor.execute("SELECT * FROM images_page WHERE title =" + "'" + title + "'" + " limit 1;")
-            tag_list = img_soup.find("div", class_="main-tags").find("a").text
+            tag_list = img_soup.find("div", class_="main-tags").find_all("a")
             if isExists == 1:
                 print("已采集：" + title)
             else:
-                for tag in tag_list:
+                for tags in tag_list:
+                    tag=tags.text
+                    print(tag)
                     sqltag = "SELECT * FROM images_tag WHERE tag =" + "'" + tag + "'" + " limit 1;"
                     isExiststag = cursor.execute(sqltag)
                     if isExiststag != 1:
