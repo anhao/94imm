@@ -1,4 +1,4 @@
-# -*- coding: gbk -*-
+# -*- coding: utf-8 -*-
 from  PIL import Image as Img
 import os,threading,platform
 
@@ -29,7 +29,7 @@ class Compress():
         name = path[-1]
         image = Img.open(file_path)
         image.save("/".join(path[0:-1])+self.p+name, quality=85)
-        print("Ñ¹ËõÍê³É£º" + file_path)
+        print("Ã‘Â¹Ã‹ÃµÃÃªÂ³Ã‰Â£Âº" + file_path)
 
     def pl_compress_new(self,file_path):
         path = file_path.split(self.p)
@@ -40,7 +40,7 @@ class Compress():
         if not is_ex:
             os.makedirs(new_name)
         image.save(new_name+name, quality=85)
-        print("Ñ¹ËõÍê³É£º" + file_path)
+        print("Ã‘Â¹Ã‹ÃµÃÃªÂ³Ã‰Â£Âº" + file_path)
 
     def do_work(self):
         while True:
@@ -67,13 +67,13 @@ class Compress():
 
 
 if __name__ == "__main__":
-    print("ÊäÈëÔ­Í¼Æ¬Â·¾¶£º")
+    print("è¾“å…¥æºå›¾ç‰‡æ‰€åœ¨è·¯å¾„")
     dir_name = input("")
-    print("ÊÇ·ñ¸²¸ÇÔ­Í¼£º1.ÊÇ£¬2.Ñ¹Ëõµ½ĞÂÎÄ¼ş¼Ğ")
+    print("1.è¦†ç›–åŸå›¾ç‰‡ï¼Œ2.å‹ç¼©åˆ°æ–°è·¯å¾„")
     in_num=input("")
     new_dir=None
     if in_num=="2":
-        print("ÊäÈëĞÂµÄÍ¼Æ¬Â·¾¶£º")
+        print("è¾“å…¥ä¿å­˜è·¯å¾„")
         new_dir = input("")
     compress=Compress(dir_name,new_dir,10)
     compress.get_file_name()
