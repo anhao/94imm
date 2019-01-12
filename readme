@@ -1,4 +1,4 @@
-两套模板，预览地址：https://www.94imm.com  http：//mm.94imm.com
+两套模板，预览地址：https://www.94imm.com  http://mm.94imm.com（联通要梯子）
   
 本地图片发布说明：cd 到 crawler，执行python3 AutoPost.py，根据提示输入本地图片所在路径，输入自动发布时间
 
