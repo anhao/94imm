@@ -1,4 +1,14 @@
 两套模板，预览地址：https://www.94imm.com  http：//mm.94imm.com
+  
+本地图片发布说明：cd 到 crawler，执行python3 AutoPost.py，根据提示输入本地图片所在路径，输入自动发布时间
+
+图片压缩使用说明：有些网站可能未对图片进行压缩，一张图1m甚至几m不但降低传输速度还占空间。cd 到 crawler，执行python3 Compress.py，
+根据提示输入，默认10个线程压缩，如果服务器配置高可适当增加，只压缩图片质量，尺寸不变，实测1m图片压缩到100k后肉眼看不出区别
+
+宝塔安装教程：最初因为这是Python程序只用安装mysql和nginx(可选)，所以一直没写教程。群里一老哥写了一个教程，在此借用下
+直接上老哥博客地址：https://sunsea.im/131/bt-94imm-build-beautiful-girl-picture-station/
+
+有问题加QQ群 955631673
 
 1.环境需求Python3.6.5、mysql5.7、nginx(可选)。系统版本推荐centos7 64位
 2.环境搭建
