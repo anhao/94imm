@@ -29,7 +29,7 @@ class Compress():
         name = path[-1]
         image = Img.open(file_path)
         image.save("/".join(path[0:-1])+self.p+name, quality=85)
-        print("Ñ¹ËõÍê³É£º" + file_path)
+        print("压缩完成：" + file_path)
 
     def pl_compress_new(self,file_path):
         path = file_path.split(self.p)
@@ -40,7 +40,7 @@ class Compress():
         if not is_ex:
             os.makedirs(new_name)
         image.save(new_name+name, quality=85)
-        print("Ñ¹ËõÍê³É£º" + file_path)
+        print("压缩完成：" + file_path)
 
     def do_work(self):
         while True:
