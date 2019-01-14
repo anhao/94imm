@@ -97,7 +97,7 @@
                                     <h4 class="text-uppercase"><a itemtype="url" href="#">{{ title }}</a></h4>
                                     <ul class="post-meta">
                                         <li><i class="fa fa-user"></i><a href="{% url 'type' typeid %}">{{ type }}</a></li>
-                                        <li><i class="fa fa-folder-open"></i><a href="{% url 'page_all' pageid %}">展开全部</a></li>
+                                        <li><i class="fa fa-folder-open"></i><a href="{% url 'page' pageid %}">分页查看</a></li>
                                     </ul>
                                     <div class="inline-block">
                                             <div class="widget-tags">
@@ -107,17 +107,12 @@
                                             </div>
                                     </div>
                                     <br>
-                                {% load pagination_tags %}
-                                {% autopaginate data 1 %}
                                     {% for img in data %}
                                         <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" > <img src="{{ img }}" alt="{{ title }}" title="{{ title }}"></a><br>
                                     {% endfor %}
 
                                 </p>
-                                 <div class="text-center">
-					                {% paginate %}
-                    <!--pagination-->
-                                 </div>
+                  
 
 
                                     <div class="clearfix inline-block">
@@ -128,13 +123,12 @@
                             <!--classic image post-->
 
                         </div>
-                </div>
-                <div class="text-center">
-                </div>
-            <!--pagination-->
-            </div>
-        </div>
-        <div class="container">
+
+
+
+                    </div>
+					</div>
+			<div class="container">
             <div class="row ">
                 <div class="portfolio portfolio-with-title portfolio-masonry blog-m col-4 gutter ">
                     {% for items in similar %}
@@ -155,6 +149,7 @@
                     {% endfor %}
 
                 </div>
+
 
         </section>
         <!--body content end-->

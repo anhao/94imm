@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -65,26 +65,15 @@
         <div class="post-data">
             <time>{{ time |date:'Y-m-d' }}</time>
             in <a href="{% url 'type' typeid %}">{{ type }}</a>
-			&nbsp;&nbsp;<a href="{% url 'page_all' pageid %}">展开全部</a>
+			&nbsp;&nbsp;<a href="{% url 'page' pageid %}">分页浏览</a>
         </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
-
         <p class="post-tags">
-            {% load pagination_tags %}
-            {% autopaginate data 1 %}
-            {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}
-        {% for img in data %}<p>
-		{% if page_obj.has_next %}
-            <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next"><img
-                    src="{{ img }}" alt="{{ title }}"/></a>
-		{% else %}
+        {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}<p>
+        {% for img in data %}
 			<img src="{{ img }}" alt="{{ title }}"/>
-		{% endif %}
 		{% endfor %}
-        <div class="lists-navigator clearfix">
-            {% paginate %}
-        </div>
     </div>
 </article>
 

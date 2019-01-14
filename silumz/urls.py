@@ -18,9 +18,9 @@ from django.contrib import admin
 from images import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^page/(?P<i_id>\d+)/$', views.page, name='page'),
+    url(r'^page_all/(?P<i_id>\d+)/$', views.page_all, name='page_all'),
     url(r'^tag/(?P<tid>\d+)/$', views.tag, name='tag'),
     url(r'^type/(?P<typeid>\d+)/$', views.type, name='type'),
     url(r'^search/', views.search),

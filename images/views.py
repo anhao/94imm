@@ -50,8 +50,35 @@ def page(request, i_id):
         imgs.append(img)
     return render(request, 'page.html',
                   {"data": imgs, "tag": tags, "title": title, "type": pagetype, "typeid": typeid, "time": time,
-                   "similar": similar(typeid),"typelist":typelist})
+                   "similar": similar(typeid),"typelist":typelist,"pageid":i_id})
 
+def page_all(request, i_id):
+    page_arr = Page.objects.get(id=i_id)
+    imgs = []
+    tags = []
+    typelist = []
+    time = page_arr.sendtime
+    typeid = page_arr.typeid
+    pagetype = Type.objects.get(id=typeid).type
+    title = page_arr.title
+    taglist = page_arr.tagid
+    tag_arr = taglist.replace("[", "").replace("]", "").split(",")
+    type_list = Type.objects.all().order_by("id")
+    for type_arr in type_list:
+        type = type_arr.type
+        type_id = type_arr.id
+        typelist.append({"type": type, "type_id": type_id})
+    for t_id in tag_arr:
+        tagid = t_id.strip(" ")
+        tag = Tag.objects.get(id=tagid).tag
+        tags.append({"tname": tag, "tid": tagid})
+    imglist = Image.objects.filter(pageid=i_id)
+    for img_arr in imglist:
+        img = img_arr.imageurl
+        imgs.append(img)
+    return render(request, 'page_all.html',
+                  {"data": imgs, "tag": tags, "title": title, "type": pagetype, "typeid": typeid, "time": time,
+                   "similar": similar(typeid),"typelist":typelist,"pageid":i_id})
 
 def tag(request, tid):
     if request.method == "GET":
@@ -98,14 +125,15 @@ def similar(id):
     sidlist = Page.objects.filter(typeid=id).order_by("-id")
     i = 0
     for s in sidlist:
-        if i < 6:
+        if i < 12:
             stitle = s.title
             pid = s.id
             tid = s.typeid
             firstimg=s.firstimg
             sendtime=s.sendtime
-            similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
-            i += 1
+            if pid!=id:
+                similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
+                i += 1
     return similarlist
 
 
