@@ -94,7 +94,7 @@
                         {% autopaginate data 12 %}
                         {% for imglist in data %}
                     <div class="portfolio-item ">
-                        <a href="{% url 'page' imglist.pid %}">
+                        <a href="{% url 'article' imglist.pid %}">
 						<div class="thumb">
                             <img src="{{ imglist.firstimg }}" alt="{{ imglist.title }}">
                             <div class="portfolio-hover">

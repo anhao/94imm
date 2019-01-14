@@ -68,7 +68,7 @@
                     <div class="post-list-item-container">
                         <div class="item-thumb  bg-deepgrey"
                              style="background-image:url({{ imglist.firstimg }});"></div>
-                        <a href="{% url 'page' imglist.pid %}">
+                        <a href="{% url 'article' imglist.pid %}">
                             <div class="item-desc">
                                 <p></p>
                             </div>
@@ -76,7 +76,7 @@
                         <div class="item-slant reverse-slant  bg-deepgrey"></div>
                         <div class="item-slant"></div>
                         <div class="item-label">
-                            <div class="item-title"><a href="{% url 'page' imglist.pid %}">{{ imglist.title }}</a></div>
+                            <div class="item-title"><a href="{% url 'article' imglist.pid %}">{{ imglist.title }}</a></div>
                             <div class="item-meta clearfix">
                                 <div class="item-meta-cat">{{ imglist.sendtime |date:'Y-m-d' }}</div>
                             </div>

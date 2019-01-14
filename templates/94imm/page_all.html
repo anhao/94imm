@@ -65,7 +65,7 @@
         <div class="post-data">
             <time>{{ time |date:'Y-m-d' }}</time>
             in <a href="{% url 'type' typeid %}">{{ type }}</a>
-			&nbsp;&nbsp;<a href="{% url 'page' pageid %}">分页浏览</a>
+			&nbsp;&nbsp;<a href="{% url 'article' pageid %}">分页浏览</a>
         </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
@@ -87,7 +87,7 @@
                 <div class="post-list-item">
                     <div class="post-list-item-container">
                         <div class="item-thumb  bg-deepgrey" style="background-image:url({{ items.firstimg }});"></div>
-                        <a href="{% url 'page' items.pid %}">
+                        <a href="{% url 'article' items.pid %}">
                             <div class="item-desc">
                                 <p></p>
                             </div>
@@ -95,7 +95,7 @@
                         <div class="item-slant reverse-slant  bg-deepgrey"></div>
                         <div class="item-slant"></div>
                         <div class="item-label">
-                            <div class="item-title"><a href="{% url 'page' items.pid %}">{{ items.stitle }}</a></div>
+                            <div class="item-title"><a href="{% url 'article' items.pid %}">{{ items.stitle }}</a></div>
                             <div class="item-meta clearfix">
                                 <div class="item-meta-cat">{{ items.sendtime|date:'Y-m-d' }}</div>
                             </div>

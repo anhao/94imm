@@ -97,7 +97,7 @@
                                     <h4 class="text-uppercase"><a itemtype="url" href="#">{{ title }}</a></h4>
                                     <ul class="post-meta">
                                         <li><i class="fa fa-user"></i><a href="{% url 'type' typeid %}">{{ type }}</a></li>
-                                        <li><i class="fa fa-folder-open"></i><a href="{% url 'page_all' pageid %}">展开图片</a></li>
+                                        <li><i class="fa fa-folder-open"></i><a href="{% url 'article' pageid %}">展开图片</a></li>
                                     </ul>
                                     <div class="inline-block">
                                             <div class="widget-tags">
@@ -139,7 +139,7 @@
                 <div class="portfolio portfolio-with-title portfolio-masonry blog-m col-4 gutter ">
                     {% for items in similar %}
                     <div class="portfolio-item ">
-                        <a href="{% url 'page' items.pid %}">
+                        <a href="{% url 'article' items.pid %}">
 						<div class="thumb">
                             <img src="{{ items.firstimg }}" alt="{{items.title }}">
                             <div class="portfolio-hover">
