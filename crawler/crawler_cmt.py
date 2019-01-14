@@ -1,4 +1,4 @@
-# coding='gbk'
+# encoding:gbk
 
 from bs4 import BeautifulSoup
 import threading, pymysql, time, requests, os, urllib3, re
@@ -10,9 +10,9 @@ s.keep_alive = False
 # 数据库连接信息
 dbhost = {
     "host": "127.0.0.1",
-    "dbname": "xxxx",
+    "dbname": "silumz",
     "user": "root",
-    "password": "xxxx"
+    "password": "fendou2009"
 }
 base_url="http://www.ccmntu.com"
 
@@ -149,8 +149,7 @@ class Spider():
             download_t.start()
 
 if __name__ == "__main__":
-    for i in [{"page": 1, "type": "xgmn", "type_id": 1}, {"page": 1, "type": "qcmn", "type_id": 3},
-              {"page": 1, "type": "swmt", "type_id": 2}]:
+    for i in [{"page": 1, "type": "xgmn", "type_id": 1}]:
         spider = Spider(page_num=i.get("page"), img_path='/static/images/', thread_num=10, type_id=i.get("type_id"),
                         type=i.get("type"))
         spider.get_url()
