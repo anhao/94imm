@@ -1,4 +1,4 @@
-# coding='UTF-8'
+# coding='gbk'
 
 from bs4 import BeautifulSoup
 import threading, pymysql, time, requests, os, urllib3, re
