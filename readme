@@ -53,4 +53,5 @@
   将模板目录下的pagination.html文件放入python安装目录的/site-packages/dj_pagination/templates/pagination/下
   （centos7  /usr/lib/python3.6/site-packages/dj_pagination/templates/pagination）
 8.备注说明
+  修改分类，数据库images_type表中修改或添加相应分类，注意采集前需要修改爬虫中的分类配置
   其他系统请自行百度mysql python3.6.5 nginx的安装方法，程序安装方法相同
