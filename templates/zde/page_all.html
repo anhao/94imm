@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="cache-control" content="no-siteapp">
+<title>{{ title }}-94iMM</title>
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel='stylesheet' id='main-css' href="/static/zde/css/style.css" type='text/css' media='all' />
+<script type='text/javascript' src="/static/zde/js/jquery.js"></script>
+<meta name="keywords" content="{% for t in tag %}{{ t.tname }},{% endfor %}">
+<meta name="description" content="{{ title }}">
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<link rel="icon" href="/static/favicon.ico" />
+<!--[if lt IE 9]><script src="/static/zde/js/html5.js"></script><![endif]-->
+</head>
+<body class="post-template-default single single-post postid-10613 single-format-image comment-open postformat-image list-thumb-hover-action">
+<header class="header">
+	<div class="container">
+		<h1 class="logo"><a href="/" title="首页"><img src="/static/logo.png"><span>94imm</span></a></h1>		<div class="sitenav">
+			<ul>
+				{% for types in typelist %}
+                    <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		<span class="sitenav-on"><i class="fa">&#xe605;</i></span>
+		<span class="sitenav-mask"></span>
+			<span class="searchstart-off"><i class="fa">&#xe606;</i></span>
+			<form method="get" class="searchform" action="/search/">
+				<button tabindex="3" class="sbtn" type="submit"><i class="fa">&#xe600;</i></button><input tabindex="2" class="sinput" name="s" type="text" placeholder="输入关键字" value="">
+			</form>
+			</div>
+</header>
+<div class="focusbox"><div class="container"><h1 class="focusbox-title">{{ title }}</h1>
+<div class="article-tags">
+{% for t in tag %}
+<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>
+{%endfor%}
+<a style="background-color:#aaa;color:#666" href="{% url 'article' pageid %}">分页浏览</a>
+</div>
+</div></div>
+<section class="container">
+
+	
+	<article class="article-content">
+	{% for img in data %}
+		<p><img class="alignnone size-medium wp-image-42" src="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />
+		{% endfor %}
+	</p>
+	</article>
+ 
+</section> 
+
+<footer class="footer">
+	    &copy; 2019 <a href="/">94imm</a><br />
+		<h1>美图分享,每日更新.</h1>
+		POWERED BY <a href="django.org">DJANGO</a> | THEME BY <a href="https://www.94imm.com">94iMM</a>
+</footer>
+
+ 
+<script type='text/javascript' src="/static/zde/js/main.js"></script>
+</body>
+</html>
