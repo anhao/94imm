@@ -20,14 +20,15 @@
 <body class="home blog list-thumb-hover-action">
 <header class="header">
 	<div class="container">
-		<h1 class="logo"><a href="/" title="首页"><img src="/static/logo.png"><span>94imm</span></a></h1>		<div class="sitenav">
+		<h1 class="logo"><a href="/" title="首页"><img src="/static/logo.png"><span>94imm</span></a></h1>		
+		<div class="sitenav">
 			<ul>
 				{% for types in typelist %}
                     <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
                 {% endfor %}
 			</ul>
 		</div>
-        <span class="sitenav-on"><i class="fa">&#xe605;</i></span>
+		<span class="sitenav-on"><i class="fa"></i></span>
 		<span class="sitenav-mask"></span>
 							<span class="searchstart-on"><i class="fa">&#xe600;</i></span>
 			<span class="searchstart-off"><i class="fa">&#xe606;</i></span>
@@ -75,5 +76,14 @@
 	}
 </script>
 <script type='text/javascript' src="/static/zde/js/main.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>
