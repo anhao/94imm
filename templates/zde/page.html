@@ -40,33 +40,49 @@
 {% for t in tag %}
 <a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>
 {%endfor%}
-<a style="background-color:#aaa;color:#666" href="{% url 'article_all' pageid %}">展开图片</a>
 </div>
+<div style="padding-top: 5px;font-size:12px;/* margin-top: 0px; */font-family: monospace;color: #978883;">点击图片自动播放</div>
 </div></div>
 <section class="container">
 
 	
 	<article class="article-content">
-	{% load pagination_tags %}
-	{% autopaginate data 1 %}
-		{% for img in data %}
-		<p>
-		{% if page_obj.has_next %}
-            <a href="?page{{ page_suffix }}={{ page_obj.next_page_number }}{{ getvars }}" class="next"><img src="{{ img }}" alt="{{ title }}" class="alignnone size-medium wp-image-42" alt="{{ title }} style="width:800px;hight:auto""/></a>
-		{% else %}
-			<img src="{{ img }}" alt="{{ title }}" class="alignnone size-medium wp-image-42" alt="{{ title }} style="width:800px;hight:auto""/>
-		{% endif %}
-		{% endfor%}
+	{% for img in data %}
+		<!--<p><img class="alignnone size-medium wp-image-42" data-original="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />-->
+		<p><img class="alignnone size-medium wp-image-42" src="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />
+		{% endfor %}
 	</p>
 	</article>
+ 
 </section> 
-<div class="pagination pagination-multi"> {% paginate %} </div>
 
 <footer class="footer">
 	    &copy; 2019 <a href="/">94imm</a><br />
 		<h1>美图分享,每日更新.</h1>
 		POWERED BY <a href="django.org">DJANGO</a> | THEME BY <a href="https://www.94imm.com">94iMM</a>
 </footer>
+
+ 
 <script type='text/javascript' src="/static/zde/js/main.js"></script>
+<script type='text/javascript' src="/static/zde/js/jquery.lazyload.min.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!--
+<script>
+$(function() {
+    $("img").lazyload({
+	placeholder : "/static/zde/timg.gif",
+	threshold: 3000
+	});
+});
+</script>
+-->
 </body>
 </html>
