@@ -232,8 +232,12 @@ $(document).ready(function(){
 		                if( _this.next('.wp-caption-text').length ){
 		                    desc = '<div class="gallerybox-itemdesc">'+ _this.next('.wp-caption-text').html() +'</div>'
 		                }
+						var imgsrc=_this.attr('src');
+						if(document.getElementsByClassName('gallerybox')){ 
+							imgsrc=_this.attr('data-original');
+						} 
 
-		                items += '<li class="glide__slide"><div class="gallerybox-item"><img data-w="'+ _this.width() +'" data-h="'+ _this.height() +'" src="'+ _this.attr('src') +'"></div>'+ desc +'</li>'
+		                items += '<li class="glide__slide"><div class="gallerybox-item"><img data-w="'+ _this.width() +'" data-h="'+ _this.height() +'" src="'+imgsrc +'"></div>'+ desc +'</li>'
 		            })
 
 		            TBUI.gallerybox_init(items)
@@ -342,6 +346,13 @@ $(document).ready(function(){
     $('.postcomments .avatar').lazyload({
         data_attribute: 'src',
         threshold: 400
+    });
+	    
+	$('img.alignnone').lazyload({
+        data_attribute: 'original',
+        threshold: 1500,
+		effect: "fadeIn",
+		placeholder : '/static/zde/timg.gif',
     });
 
 
