@@ -48,8 +48,8 @@
 	
 	<article class="article-content">
 	{% for img in data %}
-		<!--<p><img class="alignnone size-medium wp-image-42" data-original="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />-->
-		<p><img class="alignnone size-medium wp-image-42" src="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />
+		<p><img class="alignnone size-medium wp-image-42" data-original="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />
+		<!--<p><img class="alignnone size-medium wp-image-42" src="{{ img }}" alt="{{ title }}" style="width:800px;hight:auto" />-->
 		{% endfor %}
 	</p>
 	</article>
@@ -64,25 +64,8 @@
 
  
 <script type='text/javascript' src="/static/zde/js/main.js"></script>
-<script type='text/javascript' src="/static/zde/js/jquery.lazyload.min.js"></script>
 <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+<!-- 此处添加统计代码或广告代码 -->
 </script>
-<!--
-<script>
-$(function() {
-    $("img").lazyload({
-	placeholder : "/static/zde/timg.gif",
-	threshold: 3000
-	});
-});
-</script>
--->
 </body>
 </html>
