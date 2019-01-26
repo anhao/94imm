@@ -17,6 +17,7 @@
     <meta name="description" content="{{ title }}"/>
     <link href="/static/94imm/css/xcode.min.css" rel="stylesheet">
     <link href="/static/94imm/css/style.min.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="/static/94imm/js/html5.min.js"></script>
     <script src="/static/94imm/js/respond.min.js"></script>
@@ -72,7 +73,7 @@
         <p class="post-tags">
         {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}<p>
         {% for img in data %}
-			<img src="{{ img }}" alt="{{ title }}"/>
+			<img class="lazy" data-original="{{ img }}" alt="{{ title }}"/>
 		{% endfor %}
     </div>
 </article>
@@ -153,5 +154,15 @@
         </div>
     </div>
 </footer>
+<script src="/static/94imm/js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+      $("img.lazy").lazyload({
+		threshold: 2000,
+		placeholder : "/static/94imm/timg.gif",
+		});
+  });
+</script>
+<script src="/static/94imm/js/pd.js"></script>
 </body>
 </html>
