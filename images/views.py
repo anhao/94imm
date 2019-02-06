@@ -51,7 +51,7 @@ def page(request, i_id):
         imgs.append(img)
     return render(request, 'page.html',
                   {"data": imgs, "tag": tags, "title": title, "type": pagetype, "typeid": typeid, "time": time,
-                   "similar": similar(typeid),"typelist":typelist,"pageid":i_id})
+                   "similar": similar(typeid,i_id),"typelist":typelist,"pageid":i_id})
 
 def page_all(request, i_id):
     page_arr = Page.objects.get(id=i_id)
@@ -79,7 +79,7 @@ def page_all(request, i_id):
         imgs.append(img)
     return render(request, 'page_all.html',
                   {"data": imgs, "tag": tags, "title": title, "type": pagetype, "typeid": typeid, "time": time,
-                   "similar": similar(typeid),"typelist":typelist,"pageid":i_id})
+                   "similar": similar(typeid,i_id),"typelist":typelist,"pageid":i_id})
 
 def tag(request, tid):
     if request.method == "GET":
@@ -121,9 +121,9 @@ def type(request, typeid):
         return render(request, 'index.html', {"data": imgs,"typelist":typelist})
 
 
-def similar(id):
+def similar(type_id,id):
     similarlist = []
-    sidlist = Page.objects.filter(typeid=id).order_by("-id")
+    sidlist = Page.objects.filter(typeid=type_id).order_by("-id")
     i = 0
     for s in sidlist:
         stitle = s.title
@@ -131,7 +131,7 @@ def similar(id):
         tid = s.typeid
         firstimg=s.firstimg
         sendtime=s.sendtime
-        if pid!=id:
+        if pid != id:
             similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
     return_arr = random.sample(similarlist,12)
     return return_arr
