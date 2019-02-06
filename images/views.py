@@ -2,6 +2,7 @@ from django.shortcuts import render
 from images.models import *
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
+import random
 
 
 # Create your views here.
@@ -125,16 +126,15 @@ def similar(id):
     sidlist = Page.objects.filter(typeid=id).order_by("-id")
     i = 0
     for s in sidlist:
-        if i < 12:
-            stitle = s.title
-            pid = s.id
-            tid = s.typeid
-            firstimg=s.firstimg
-            sendtime=s.sendtime
-            if pid!=id:
-                similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
-                i += 1
-    return similarlist
+        stitle = s.title
+        pid = s.id
+        tid = s.typeid
+        firstimg=s.firstimg
+        sendtime=s.sendtime
+        if pid!=id:
+            similarlist.append({"stitle": stitle, "tid": tid, "pid": pid,"firstimg":firstimg,"sendtime":sendtime})
+    return_arr = random.sample(similarlist,12)
+    return return_arr
 
 
 def search(request):
