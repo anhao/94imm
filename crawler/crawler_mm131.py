@@ -53,7 +53,11 @@ class Spider():
                              headers=self.headers)
             page.encoding = 'gb2312'
             soup = BeautifulSoup(page.text, "html.parser")
-            page_div = soup.find("dl", class_="list-left public-box").find_all("dd")
+            try:
+                page_div = soup.find("dl", class_="list-left public-box").find_all("dd")
+            except:
+                print("采集错误，跳过本条")
+                continue
             del page_div[-1]
             for dd in page_div:
                 url = dd.find("a").get("href")
