@@ -72,9 +72,10 @@ $("#fix").smartFloat();
 
 //lazyload初始
 $(function() {
-    $("img").lazyload({
-        threshold: 400,
-        effect: "fadeIn"
+    $("img.lazy").lazyload({
+		data_attribute: 'original',
+        threshold: 200,
+		placeholder : '/static/94imm/timg.gif',
     });
 });
 

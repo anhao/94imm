@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -22,6 +22,7 @@
 	<div class="container">
 		<h1 class="logo"><a href="/" title="首页"><img src="/static/logo.png"><span>94imm</span></a></h1>		<div class="sitenav">
 			<ul>
+				<li><a href="/">首页</a></li>
 				{% for types in typelist %}
                     <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
                 {% endfor %}
@@ -54,10 +55,8 @@
 	</p>
 	</article>
 </section>
-<div style=" width:100%; text-align:center" >
-            <hr align=left class="hrLine" style="width:46%; "/>  相关推荐  <hr align=right class="hrLine" style="width:46%; "/>
-</div>
-<div class="excerpts-wrapper">
+<div class="line_03"><b></b><span>相关推荐</span><b></b></div>
+<div class="excerpts-article">
 	<div class="excerpts">
             {% for items in similar %}
 			<article class="excerpt excerpt-c4">
@@ -80,7 +79,13 @@
  
 <script type='text/javascript' src="/static/zde/js/main.js"></script>
 <script>
-<!--统计代码-->
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?968d4cc19bbec995ba8b2739849207f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
 </script>
 
 </body>
