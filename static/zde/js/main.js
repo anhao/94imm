@@ -375,7 +375,7 @@ $(document).ready(function(){
 			pagination           : '.pagination',
 			next                 : '.next-page a',
 			loader               : '<div class="pagination-loading"><h2>加载中</h2></div>',
-			trigger              : '继续加载',
+			trigger              : '点击继续加载',
 			onRenderComplete     : function() {
 				$('.excerpt:gt(-'+(TBUI.pagenum+1)+') .thumb').lazyload({
 			        data_attribute: 'src',

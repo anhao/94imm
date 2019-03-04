@@ -32,7 +32,7 @@ jQuery(document).ready(function (){
         pagination:'.page-navigator',
         next:'.next a',
         loader:'<div class="pagination-loading"><h2>加载中</h2></div>',
-        trigger:'<div class="pagination-loading"><h2>继续加载</h2></div>',
+        trigger:'<div class="pagination-loading"><h2>点击继续加载</h2></div>',
         triggerPageThreshold:10,                          //最大的页数，也就是滚动多少次停。这个页码必须得要你从数据库里面拿         
     });  
 }); 
